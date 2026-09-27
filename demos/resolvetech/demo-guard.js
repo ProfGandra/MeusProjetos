@@ -1,4 +1,7 @@
 (()=>{"use strict";
+
+const ASSET_BASE="https://raw.githubusercontent.com/ProfGandra/ResolveTech/main/assets/";
+function fixAssetUrls(root=document){root.querySelectorAll('img[src^="assets/"]').forEach(img=>{img.src=ASSET_BASE+img.getAttribute("src").slice(7);});}
 const FULL_IDS=["practice-mode-btn","load-save-btn","tickets-mode-btn","backup-mode-btn","monitor-mode-btn","docs-mode-btn","workshop-mode-btn"];
 const labels={practice:"Praticar",load:"Carregar Save",tickets:"Central de Chamados",backup:"Backup & Deploy",monitor:"Monitoramento",docs:"Meus Documentos",workshop:"Montar a Oficina"};
 function lockButton(id){const b=document.getElementById(id);if(!b)return;b.dataset.demoLocked="1";b.classList.add("demo-locked");const em=b.querySelector("em");if(em)em.textContent="VERSÃO COMPLETA";b.title="Disponível na versão completa do ResolveTech";}
@@ -8,5 +11,5 @@ function levelFromPage(){const active=[...document.querySelectorAll(".screen.act
 let blocking=false;
 function enforce(){if(blocking)return;const n=levelFromPage();if(n&&n>3){blocking=true;finishDemo();setTimeout(()=>blocking=false,250);}}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-demo-locked='1']");if(b){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
-document.addEventListener("DOMContentLoaded",()=>{FULL_IDS.forEach(lockButton);const badge=document.createElement("div");badge.className="demo-ribbon";badge.textContent="DEMONSTRAÇÃO · HISTÓRIA NÍVEIS 1–3";document.body.appendChild(badge);new MutationObserver(enforce).observe(document.body,{subtree:true,attributes:true,attributeFilter:["class"],childList:true,characterData:true});setInterval(enforce,500);});
+document.addEventListener("DOMContentLoaded",()=>{fixAssetUrls();FULL_IDS.forEach(lockButton);const badge=document.createElement("div");badge.className="demo-ribbon";badge.textContent="DEMONSTRAÇÃO · HISTÓRIA NÍVEIS 1–3";document.body.appendChild(badge);new MutationObserver(m=>{fixAssetUrls();enforce();}).observe(document.body,{subtree:true,attributes:true,attributeFilter:["class","src"],childList:true,characterData:true});setInterval(enforce,500);});
 })();
