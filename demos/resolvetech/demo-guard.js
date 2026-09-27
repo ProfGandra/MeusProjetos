@@ -9,7 +9,27 @@ function notice(title="Recurso da versão completa"){let m=document.getElementBy
 function finishDemo(){document.querySelectorAll(".screen.active").forEach(x=>x.classList.remove("active"));let s=document.getElementById("demo-finish-screen");if(!s){s=document.createElement("section");s.id="demo-finish-screen";s.className="screen active hero-screen";s.innerHTML='<div class="panel final-panel"><div class="badge">DEMONSTRAÇÃO CONCLUÍDA</div><h2>Você concluiu os 3 níveis da demo</h2><p>Você experimentou uma parte do Modo História do ResolveTech. A versão completa continua com novos atendimentos, conteúdos e ferramentas.</p><div class="learning-box"><strong>A demo continua aberta:</strong> você ainda pode explorar a Biblioteca, experimentar a Oficina de Upgrade ou repetir os níveis em outra dificuldade.</div><div class="demo-finish-actions"><button class="primary" id="demo-home">Voltar ao ResolveTech</button><a class="secondary demo-link" href="/MeusProjetos/projetos/resolvetech/">Conhecer o projeto</a></div></div>';document.querySelector("main").appendChild(s);s.querySelector("#demo-home").onclick=()=>{location.reload()};}else s.classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
 function levelFromPage(){const active=[...document.querySelectorAll(".screen.active")];const text=active.map(x=>x.innerText||"").join(" ");const m=text.match(/N[ÍI]VEL\s*(\d+)/i);return m?Number(m[1]):null;}
 let blocking=false;
-function enforce(){if(blocking)return;const n=levelFromPage();if(n&&n>3){blocking=true;finishDemo();setTimeout(()=>blocking=false,250);}}
-document.addEventListener("click",e=>{const b=e.target.closest("[data-demo-locked='1']");if(b){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
+
+function demoLevel3Complete(){
+ const screen=document.getElementById("phase-result-screen");
+ const title=document.getElementById("phase-result-title");
+ if(!screen||!screen.classList.contains("active"))return false;
+ const all=(screen.innerText+" "+(title?.textContent||"")).toLowerCase();
+ const n=levelFromPage();
+ return n===3 || /nível\s*3|nivel\s*3|fase\s*3/.test(all);
+}
+function lockAfterLevel3(){
+ if(!demoLevel3Complete())return;
+ const btn=document.getElementById("next-phase-btn");
+ if(btn&&!btn.dataset.demoFinish){
+   btn.dataset.demoFinish="1";
+   btn.textContent="Concluir demonstração";
+   btn.onclick=(e)=>{e.preventDefault();e.stopImmediatePropagation();finishDemo();};
+   btn.addEventListener("click",(e)=>{e.preventDefault();e.stopImmediatePropagation();finishDemo();},true);
+ }
+}
+
+function enforce(){if(blocking)return;lockAfterLevel3();const n=levelFromPage();if(n&&n>3){blocking=true;finishDemo();setTimeout(()=>blocking=false,250);}}
+document.addEventListener("click",e=>{const next=e.target.closest("#next-phase-btn");if(next&&demoLevel3Complete()){e.preventDefault();e.stopImmediatePropagation();finishDemo();return;}const b=e.target.closest("[data-demo-locked='1']");if(b){e.preventDefault();e.stopImmediatePropagation();notice();}},true);
 document.addEventListener("DOMContentLoaded",()=>{fixAssetUrls();FULL_IDS.forEach(lockButton);const badge=document.createElement("div");badge.className="demo-ribbon";badge.textContent="DEMONSTRAÇÃO · HISTÓRIA NÍVEIS 1–3";document.body.appendChild(badge);new MutationObserver(m=>{fixAssetUrls();enforce();}).observe(document.body,{subtree:true,attributes:true,attributeFilter:["class","src"],childList:true,characterData:true});setInterval(enforce,500);});
 })();
