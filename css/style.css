@@ -45,3 +45,8 @@
 .digital-section [data-status]{min-width:52px;text-align:center;color:var(--muted);font-weight:800}
 .book-cover-placeholder img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media(max-width:620px){.carousel-slide img{height:auto;max-height:70vh}.carousel-slide figcaption{font-size:.82rem;padding:28px 14px 12px}}
+
+/* Correção robusta do carrossel: apenas um slide visível mesmo antes/depois do JS */
+.book-carousel .carousel-slide{display:none!important}
+.book-carousel .carousel-slide.active{display:block!important}
+.book-carousel .carousel-slide[hidden]{display:none!important}
