@@ -89,3 +89,27 @@
   .digital-section [data-status]{min-width:38px}
   .book-back{padding:22px 8px}
 }
+
+
+/* Páginas dos projetos educacionais */
+.project-page{background:#07111b url("../assets/images/home-background.webp") center/cover no-repeat fixed}
+.project-main{max-width:1180px;margin:0 auto;padding:110px 28px 30px}
+.project-main>section{border:1px solid var(--line);box-shadow:0 24px 70px #0008;backdrop-filter:blur(14px);border-radius:22px}
+.project-hero{min-height:570px;display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:center;padding:64px;background:rgba(5,14,23,.92)}
+.project-hero h1{font-size:clamp(3.5rem,7vw,6.4rem);line-height:.92;letter-spacing:-.055em;margin:.08em 0 .25em}
+.project-hero>div>p:not(.eyebrow){color:var(--muted);font-size:1.05rem;max-width:680px}
+.project-lead{font-size:1.35rem!important;color:#dbe8ef!important;line-height:1.45}
+.project-visual{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;border:1px solid #31d8ff45;border-radius:50%;background:radial-gradient(circle,#123449,#07131d 65%);box-shadow:0 30px 80px #000a,inset 0 0 60px #31d8ff12}
+.project-visual strong{font-size:clamp(1.5rem,3vw,2.5rem);letter-spacing:.05em}.project-visual span{color:var(--accent);margin-top:8px;font-size:.78rem;letter-spacing:.08em}
+.project-story{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px;margin-top:24px;padding:60px 64px;background:rgba(7,18,28,.94)}
+.project-story p,.project-details p,.project-book-link p{color:var(--muted);font-size:1.03rem}
+.project-details{margin-top:24px;padding:60px 64px;background:rgba(7,18,28,.94)}
+.project-feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.project-feature-grid article{padding:22px;border-top:2px solid #31d8ff55;background:#ffffff06}
+.project-feature-grid span{color:var(--warm);font-weight:900}.project-feature-grid h3{margin:8px 0}
+.project-book-link{margin-top:24px;padding:60px 64px;background:rgba(7,18,28,.94)}
+.project-book-link p{max-width:780px}.project-book-link .btn{margin-top:12px}
+.project-note{display:block;color:var(--muted)!important;font-size:.8rem;margin-top:auto}
+.project-grid .card-link{display:inline-block;margin-top:12px}
+@media(max-width:850px){.project-hero{grid-template-columns:1fr;padding:42px 30px}.project-visual{width:min(330px,70vw);justify-self:center}.project-story{grid-template-columns:1fr;gap:12px;padding:40px 30px}.project-feature-grid{grid-template-columns:repeat(2,1fr)}.project-details,.project-book-link{padding:40px 30px}}
+@media(max-width:620px){.project-page{background-attachment:scroll}.project-main{padding:76px 10px 18px}.project-main>section{border-radius:16px}.project-hero{display:flex;flex-direction:column;min-height:0;gap:28px;padding:30px 20px}.project-hero h1{font-size:clamp(2.7rem,14vw,4rem)}.project-lead{font-size:1.12rem!important}.project-visual{width:min(68vw,250px);padding:20px}.project-story{display:block;padding:30px 20px}.project-story>div:first-child{margin-bottom:24px}.project-details,.project-book-link{padding:30px 20px}.project-feature-grid{grid-template-columns:1fr;gap:10px}.project-feature-grid article{padding:18px}}
