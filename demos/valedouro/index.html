@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ValeDouro — Demonstração</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#0b0d0b;overflow:hidden}
+#game{position:fixed;inset:0;width:100%;height:100%;border:0;background:#0b0d0b}
+#demoBadge{position:fixed;z-index:999999;right:14px;bottom:14px;padding:9px 13px;border-radius:999px;background:rgba(12,17,13,.92);border:1px solid rgba(204,174,92,.55);color:#f2dfaa;font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.35px;box-shadow:0 8px 30px #0008;pointer-events:none}
+#fatal{display:none;position:fixed;inset:0;z-index:1000000;background:#111;color:#eee;padding:32px;font:16px/1.5 system-ui,sans-serif}
+@media(max-width:700px){#demoBadge{left:10px;right:10px;bottom:10px;text-align:center}}
+</style>
+</head>
+<body>
+<iframe id="game" src="/ValeDouroWEBIA/" title="ValeDouro WEBIA"></iframe>
+<div id="demoBadge">DEMONSTRAÇÃO · MESTRE 0/10</div>
+<div id="fatal"><h2>ValeDouro — Demonstração</h2><p>Não foi possível aplicar a trava da demonstração. Recarregue a página.</p></div>
+<script>
+(()=>{
+ const LIMIT=10, KEY='valedouro_demo_master_interactions_v1';
+ const frame=document.getElementById('game'), badge=document.getElementById('demoBadge'), fatal=document.getElementById('fatal');
+ function read(){return Math.max(0,Math.min(LIMIT,parseInt(localStorage.getItem(KEY)||'0',10)||0))}
+ function paint(){badge.textContent='DEMONSTRAÇÃO · MESTRE '+read()+'/'+LIMIT}
+ paint();
+ frame.addEventListener('load',()=>{
+   try{
+     const w=frame.contentWindow;
+     w.__VALEDOURO_DEMO_CONFIG={limit:LIMIT,key:KEY,projectUrl:'/MeusProjetos/'};
+     w.eval(`
+       (()=>{
+         const cfg=window.__VALEDOURO_DEMO_CONFIG;
+         if(window.__valedouroDemoInstalled)return;
+         window.__valedouroDemoInstalled=true;
+         const clamp=n=>Math.max(0,Math.min(cfg.limit,Number(n)||0));
+         const used=()=>clamp(parseInt(localStorage.getItem(cfg.key)||'0',10));
+         const save=n=>{localStorage.setItem(cfg.key,String(clamp(n)));try{parent.postMessage({type:'vd-demo-count',count:clamp(n)},location.origin)}catch(e){}};
+         function lock(){
+           const input=document.getElementById('action'),btn=document.getElementById('actBtn');
+           if(input){input.disabled=true;input.placeholder='Demonstração concluída';}
+           if(btn)btn.disabled=true;
+           let box=document.getElementById('vdDemoEnd');
+           if(!box){
+             box=document.createElement('div');box.id='vdDemoEnd';
+             box.innerHTML='<div class="vd-demo-card"><small>DEMONSTRAÇÃO CONCLUÍDA</small><h2>Sua jornada por ValeDouro está apenas começando...</h2><p>Você completou as 10 interações disponíveis com o Mestre Virtual.</p><p>No ValeDouro completo, suas decisões continuam conduzindo a história e o mundo permanece aberto às escolhas do grupo.</p><a href="'+cfg.projectUrl+'">Voltar ao site</a></div>';
+             document.body.appendChild(box);
+             const st=document.createElement('style');
+             st.textContent='#vdDemoEnd{position:fixed;inset:0;z-index:2147483647;background:rgba(8,10,8,.92);display:grid;place-items:center;padding:22px}.vd-demo-card{max-width:680px;background:#171b16;border:1px solid #b89b55;border-radius:18px;padding:30px;color:#eee;box-shadow:0 30px 80px #000;text-align:center}.vd-demo-card small{color:#e1c675;font-weight:900;letter-spacing:1px}.vd-demo-card h2{font-size:clamp(27px,5vw,44px);margin:12px 0}.vd-demo-card p{line-height:1.6;color:#d5d5cf}.vd-demo-card a{display:inline-block;margin-top:10px;padding:12px 18px;border-radius:10px;background:#c6a75e;color:#17130b;text-decoration:none;font-weight:900}';
+             document.head.appendChild(st);
+           }
+         }
+         function assistantCount(){try{return state.history.filter(x=>x&&x.role==='assistant').length}catch(e){return 0}}
+         const originalAskAI=askAI;
+         askAI=async function(action){
+           if(used()>=cfg.limit){lock();return;}
+           const before=assistantCount();
+           await originalAskAI(action);
+           const after=assistantCount();
+           if(after>before){
+             const n=used()+1;save(n);
+             if(n>=cfg.limit)lock();
+           }
+         };
+         const originalAct=act;
+         act=async function(){
+           if(used()>=cfg.limit){lock();return;}
+           return originalAct.apply(this,arguments);
+         };
+         const obs=new MutationObserver(()=>{if(used()>=cfg.limit){const b=document.getElementById('actBtn');if(b)b.disabled=true}});
+         obs.observe(document.documentElement,{subtree:true,childList:true});
+         save(used());
+         if(used()>=cfg.limit)lock();
+       })();
+     `);
+   }catch(e){console.error(e);fatal.style.display='block'}
+ });
+ window.addEventListener('message',e=>{if(e.origin!==location.origin||!e.data||e.data.type!=='vd-demo-count')return;paint()});
+})();
+</script>
+</body>
+</html>
