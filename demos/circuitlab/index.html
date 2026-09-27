@@ -1,1 +1,823 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Demonstração do jogo educacional CircuitLab."><title>CircuitLab — Demonstração</title><link rel="stylesheet" href="../../css/style.css?v=20260927-4"></head><body class="demo-page"><main class="demo-shell"><a class="demo-brand" href="../../"><span>DG</span> Professor Gandra</a><section class="demo-card"><p class="eyebrow">DEMONSTRAÇÃO · PROJETO EDUCACIONAL</p><h1>CircuitLab</h1><p class="demo-lead">Eletrônica, cálculo e medição em um laboratório virtual.</p><div class="demo-status"><strong>Demo em preparação</strong><p>Esta área receberá uma versão demonstrativa curta do jogo, criada para apresentar sua proposta sem disponibilizar a experiência completa.</p></div><div class="demo-plan"><span>01 · Apresentação</span><span>02 · Desafios selecionados</span><span>03 · Fim da demonstração</span></div><div class="book-actions"><a class="btn ghost" href="../../projetos/circuitlab/">← Conhecer o jogo</a><a class="btn ghost" href="../../livros/tics-e-ia/">TICs e IA →</a></div></section></main><footer><strong>Diego Guimarães Gandra</strong><span>Versão demonstrativa · © 2026</span></footer></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CircuitLab — Demonstração</title>
+<style>
+:root{--bg:#06111b;--panel:#0d2232;--line:#28506a;--txt:#eef9ff;--muted:#9db7c9;--a:#20d5aa;--b:#21a8ff;--warn:#ffd166;--bad:#ff6677}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 70% 0,#153b55,#06111b 48%);color:var(--txt);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1220px;margin:auto;padding:16px}.hud{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;background:#081a28e8;border:1px solid var(--line);padding:11px 15px;border-radius:17px;position:sticky;top:6px;z-index:10;backdrop-filter:blur(8px)}.brand b{font-size:23px}.brand span{color:var(--a)}.stat{background:#10293b;border:1px solid #31566e;padding:8px 11px;border-radius:11px}.progress{height:7px;background:#18364a;border-radius:8px;overflow:hidden;margin-top:7px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b));transition:.3s}.screen{display:none}.screen.active{display:block}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;min-height:72vh}.hero h1{font-size:clamp(48px,8vw,86px);margin:0;line-height:.95}.hero h1 span{color:var(--a)}.hero p{font-size:19px;line-height:1.5;color:#c6d8e4}.hero img{width:100%;max-height:610px;object-fit:contain;filter:drop-shadow(0 18px 30px #0008)}.primary,.secondary,.danger{border:0;border-radius:11px;padding:12px 17px;font-weight:800}.primary{background:var(--a);color:#03251c}.secondary{background:#17384e;color:white;border:1px solid #37627b}.danger{background:#5a2630;color:#fff}.card{background:linear-gradient(180deg,#10283a,#0a1c29);border:1px solid var(--line);border-radius:17px;padding:19px;margin:17px 0;box-shadow:0 14px 35px #0003}.mission{border-left:4px solid var(--a)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.level{padding:16px;border-radius:14px;background:#0d2637;border:1px solid #31556d;position:relative}.level.done{border-color:#1aa982}.level.locked{opacity:.48}.level button{margin-top:10px}.options{display:grid;gap:9px}.option{padding:12px;border-radius:10px;border:1px solid #355d76;background:#102d40;color:#fff;text-align:left}.option:hover{border-color:var(--a)}.inputrow{display:flex;gap:9px;flex-wrap:wrap}.inputrow input,.inputrow select{background:#071925;color:#fff;border:1px solid #376079;border-radius:9px;padding:11px;min-width:190px}.feedback{min-height:28px;margin-top:12px;font-weight:750}.ok{color:var(--a)}.bad{color:var(--bad)}.tip{color:var(--muted);font-size:14px}.formula{font:700 22px Georgia,serif;background:#071925;border:1px solid #31566e;border-radius:12px;padding:14px;text-align:center}.circuit{background:#f5f7f8;color:#16232d;border-radius:13px;padding:15px;min-height:220px;display:flex;align-items:center;justify-content:center}.circuit svg{width:100%;max-height:260px}.hintbox{display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:center;background:#102d40;border:1px solid #3d6680;border-radius:14px;padding:12px}.hintbox img{width:130px;height:130px;object-fit:contain}.meter{width:250px;background:#252b2d;border:9px solid #f3a51b;border-radius:24px;padding:14px;margin:auto;box-shadow:0 12px 25px #0007}.lcd{background:#bac59b;color:#1a2419;font:700 38px monospace;text-align:right;padding:9px;border-radius:7px;border:4px solid #15191a}.dial{width:115px;height:115px;border-radius:50%;background:#101416;border:8px solid #333;margin:14px auto;position:relative}.dial:after{content:"";position:absolute;width:8px;height:48px;background:#888;left:46px;top:10px;transform:rotate(45deg);transform-origin:bottom}.jacks{display:flex;justify-content:space-around;font-size:12px}.probearea{position:relative;background:#edf1f2;color:#222;border-radius:12px;height:260px;overflow:hidden}.wire{position:absolute;height:4px;background:#555}.res{position:absolute;background:#d7b36c;border:2px solid #735526;border-radius:8px;padding:9px 18px;font-weight:800}.node{position:absolute;width:24px;height:24px;border-radius:50%;background:#20d5aa;border:4px solid #fff;box-shadow:0 0 0 2px #1d5268;cursor:pointer}.node.sel{background:#ffd166}.probe{position:absolute;width:18px;height:95px;border-radius:9px 9px 3px 3px;cursor:grab;z-index:3;box-shadow:0 4px 9px #0005}.probe.red{background:#e64242}.probe.black{background:#171717}.probe:after{content:"";position:absolute;bottom:-28px;left:7px;width:4px;height:30px;background:#999}.small{font-size:13px;color:var(--muted)}.badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#123b4d;color:#bcefff;margin:3px}.footer{text-align:center;color:#7793a6;padding:28px}.scorepop{animation:pop .4s}@keyframes pop{50%{transform:scale(1.12);color:var(--warn)}}@media(max-width:800px){.hero,.grid,.grid3{grid-template-columns:1fr}.hud{grid-template-columns:1fr auto}.hud .hideMob{display:none}.hero img{max-height:430px}.hintbox{grid-template-columns:90px 1fr}.hintbox img{width:90px;height:90px}}
+
+.theory{background:linear-gradient(135deg,#0d2b3f,#10283a);border:1px solid #3b6b86;border-radius:16px;padding:22px}.theory h3{color:var(--a)}.theory li{margin:8px 0;line-height:1.45}.meter-real{width:300px;margin:auto;background:linear-gradient(145deg,#2a2d2f,#111416);border:10px solid #e9a21a;border-radius:28px;padding:14px;box-shadow:inset 0 0 0 3px #6b4707,0 15px 30px #0008;user-select:none}.meter-brand{text-align:center;font-weight:900;letter-spacing:2px;color:#ddd}.meter-real .lcd{height:82px;display:flex;align-items:center;justify-content:flex-end}.meter-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}.meter-modes button{font-size:12px;padding:8px 4px;border-radius:7px;border:1px solid #666;background:#25292b;color:#eee}.meter-modes button.on{background:#18b996;color:#041d17;border-color:#43f0c5;font-weight:900}.meter-dial{width:132px;height:132px;border-radius:50%;margin:8px auto;background:radial-gradient(circle,#202426 0 43%,#090b0c 44% 60%,#3d4143 61%);position:relative;border:3px solid #555}.meter-dial .pointer{position:absolute;width:8px;height:54px;background:#c8c8c8;left:59px;top:12px;border-radius:5px;transform-origin:4px 54px;transition:.25s}.meter-labels{display:flex;justify-content:space-between;font-size:11px;color:#ddd}.meter-jacks{display:flex;justify-content:space-around;margin-top:10px}.jack{width:36px;height:36px;border-radius:50%;background:#090909;border:5px solid #444;position:relative}.jack.red{border-color:#c93232}.jack.black{border-color:#222}.jack span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:#ddd;white-space:nowrap}.measure-layout{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}.statusline{padding:9px 12px;border-radius:9px;background:#071925;border:1px solid #31566e;margin-top:9px}.theory-banner{display:flex;gap:18px;align-items:center}.theory-banner img{width:170px;height:190px;object-fit:contain}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#17384e;border:1px solid #37627b;margin:3px}.randomtag{color:#ffd166;font-size:13px;font-weight:700}@media(max-width:800px){.measure-layout{grid-template-columns:1fr}.meter-real{width:min(300px,100%)}}
+
+.identity{display:grid;grid-template-columns:1fr 1fr;gap:16px}.credential{background:#fff;color:#12212b;border-radius:16px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:9px;min-width:250px;border:2px solid #c7d5dd;box-shadow:0 12px 28px #0003}.credential .senai-logo{width:100%;background:#fff;border:1px solid #e4e4e4;border-radius:10px;padding:8px 10px;text-align:center;color:#df1f2d;font-weight:1000;font-size:21px;letter-spacing:.8px}.credential .avatar{width:94px;height:108px;border-radius:14px;background:linear-gradient(180deg,#dce8ee,#c6d7df);display:flex;align-items:center;justify-content:center;font-size:58px;border:1px solid #b9cbd4}.credential .student-name{font-size:17px;font-weight:900;text-align:center;min-height:22px;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.credential .card-label{font-size:11px;color:#5f707b;letter-spacing:1px}.barcode{width:88%;height:32px;margin-top:2px;background:repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 4px,#111 4px 5px,transparent 5px 8px,#111 8px 11px,transparent 11px 13px)}.credential .barcode-id{font:700 9px monospace;color:#56656e;letter-spacing:1.4px;margin-top:-4px}.hudcard{transform:scale(.56);transform-origin:right center;margin:-46px -50px -46px 0;min-width:200px}.enrollment-preview{display:flex;justify-content:center;align-items:center;min-height:430px}.enrollment-preview .credential{width:310px;min-height:410px;justify-content:flex-start;padding:18px}.enrollment-preview .credential .avatar{width:136px;height:156px;font-size:82px}.enrollment-preview .credential .student-name{font-size:21px;max-width:270px}.enrollment-preview .credential .senai-logo{font-size:26px;padding:12px}.enrollment-preview .barcode{height:42px}.cheat{font:700 13px monospace;word-break:break-all;background:#06111b;padding:10px;border-radius:8px;border:1px dashed #4c7790}.meter-real{position:relative;background:linear-gradient(145deg,#f0a51c 0 7%,#2c3032 7% 93%,#f0a51c 93%);padding:18px 20px 22px}.meter-real:before{content:'CIRCUITLAB DMM';display:block;text-align:center;font-weight:900;color:#eee;margin-bottom:8px}.meter-dial{cursor:pointer}.meter-scale{position:relative;height:22px;color:#ddd;font-size:10px;text-align:center}.meter-help{font-size:12px;color:#c9d6dd;text-align:center;margin-top:7px}.leadrow{display:flex;justify-content:center;gap:36px;margin-top:12px}.lead{width:10px;height:55px;border-radius:6px}.lead.red{background:#e33}.lead.black{background:#111}.isolated{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;background:#f5f7f8;color:#16232d;border-radius:13px;padding:35px}.component{min-width:170px;text-align:center;font-weight:800}.component .body{height:38px;background:#d7b36c;border:2px solid #735526;border-radius:8px;position:relative;margin:18px 22px}.component .body:before,.component .body:after{content:'';position:absolute;top:16px;width:24px;height:4px;background:#253746}.component .body:before{left:-24px}.component .body:after{right:-24px}.fieldlabel{display:grid;gap:5px;font-size:12px;color:#9db7c9}.fieldlabel input,.fieldlabel select{color:#fff}.homebox{max-width:760px}.warning{border-left:4px solid var(--warn);padding:10px;background:#2c2918;border-radius:8px}.meter-lesson{display:grid;grid-template-columns:310px 1fr;gap:18px}@media(max-width:800px){.identity,.meter-lesson{grid-template-columns:1fr}.hudcard{display:none}}
+
+select{background:#0b2231;color:#f4f8fb;border:1px solid #37627b}
+select option{background:#0b2231;color:#f4f8fb}
+select option:checked{background:#1f6f8b;color:#fff}
+.avatar svg{width:86%;height:86%;display:block}
+
+/* v0.7 — matrícula/crachá */
+#studentName{
+  background:#0b2231 !important;
+  color:#f4f8fb !important;
+  border:1px solid #37627b !important;
+}
+#studentName::placeholder{color:#9bb0bd !important;opacity:1}
+#studentName:focus,#studentGender:focus{
+  outline:none;
+  border-color:#20d5aa !important;
+  box-shadow:0 0 0 2px rgba(32,213,170,.16);
+}
+.credential .senai-logo{
+  min-height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 10px;
+}
+.credential .senai-logo img{
+  width:100%;
+  max-width:220px;
+  height:46px;
+  object-fit:contain;
+  display:block;
+}
+.enrollment-preview .credential .senai-logo img{height:56px;max-width:255px}
+.completion-art{width:100%;max-height:410px;object-fit:contain}
+
+/* v0.8 — bancada de medição interativa */
+.measure-bench{position:relative;background:#f4f7f8;border-radius:16px;min-height:330px;overflow:hidden;border:1px solid #cbd8df}
+.measure-bench svg{width:100%;height:330px;display:block}
+.measure-node{fill:#20d5aa;stroke:#087d68;stroke-width:3}
+.measure-target{fill:none;stroke:#20bda0;stroke-width:3;stroke-dasharray:7 6}
+.probe{position:absolute;width:46px;height:150px;z-index:8;touch-action:none;cursor:grab;transform:translate(-23px,-142px);filter:drop-shadow(0 3px 3px #0005)}
+.probe:active{cursor:grabbing}
+.probe .handle{position:absolute;left:12px;top:0;width:22px;height:80px;border-radius:8px 8px 15px 15px;border:2px solid #2223}
+.probe .guard{position:absolute;left:5px;top:72px;width:36px;height:12px;border-radius:50%}
+.probe .neck{position:absolute;left:16px;top:81px;width:14px;height:17px;border-radius:3px}
+.probe .tip{position:absolute;left:20px;top:95px;width:6px;height:45px;background:linear-gradient(90deg,#777,#e6e6e6,#777);clip-path:polygon(25% 100%,75% 100%,60% 0,40% 0)}
+.probe .dot{position:absolute;left:18px;top:134px;width:10px;height:10px;border-radius:50%;background:transparent}
+.probe.red .handle,.probe.red .guard,.probe.red .neck{background:#c91f2d}
+.probe.black .handle,.probe.black .guard,.probe.black .neck{background:#17191b}
+.bench-note{position:absolute;left:18px;bottom:12px;color:#233845;font:600 13px Arial;background:#ffffffdd;padding:7px 10px;border-radius:8px}
+.measure-status{margin-top:12px;padding:10px;border-radius:10px;background:#081b28;border:1px solid #31576e}
+.measure-status b{color:#20d5aa}
+
+.part-tag{display:inline-block;padding:5px 10px;border-radius:999px;background:#143b4e;color:#52ffd3;font-weight:800;margin-bottom:8px}
+.scope{background:#202a30;border:7px solid #44545d;border-radius:16px;padding:14px;max-width:850px}
+.scope-screen{background:#071b17;border:4px solid #0c1114;border-radius:8px;height:310px}
+.scope-screen svg{width:100%;height:100%}.scope-grid{stroke:#174d42;stroke-width:1}.scope-trace{fill:none;stroke:#50ffca;stroke-width:3}
+.scope-controls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.scope-controls label{background:#17232a;border:1px solid #52636b;border-radius:8px;padding:8px;color:#dce7ec}
+.scope-controls select{width:100%;margin-top:5px;background:#0b2231;color:white;border:1px solid #37627b;padding:7px;border-radius:6px}
+.cap-circuit{background:#f4f7f8;border-radius:15px;padding:10px}.cap-circuit svg{width:100%;height:auto}
+
+.scope-livebar{display:flex;justify-content:space-between;gap:10px;margin-top:8px;font:700 12px monospace;color:#76ffd7}
+.scope-livebar .stop{color:#ff7979}
+.scope-clipped{color:#ffcf4a;font-weight:800}
+
+/* v1.0 — Parte 3: Transistores */
+.transistor-circuit{background:#f4f7f8;border-radius:15px;padding:10px}
+.transistor-circuit svg{width:100%;height:auto;display:block}
+.bjt-label{font:700 14px Arial;fill:#263746}
+.astable-lab{display:grid;grid-template-columns:minmax(480px,1.15fr) minmax(390px,.85fr);gap:18px;align-items:start}
+.astable-board{background:#f5f8f9;border:1px solid #cad8df;border-radius:16px;padding:14px}
+.astable-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.astable-control{background:#0d2939;border:1px solid #28566e;border-radius:10px;padding:10px}
+.astable-control label{display:flex;justify-content:space-between;font-weight:800;margin-bottom:7px}
+.astable-control input[type=range]{width:100%}
+.led-row{display:flex;justify-content:center;gap:55px;margin:14px 0}
+.virtual-led{width:58px;height:58px;border-radius:50%;background:#441111;border:5px solid #222;box-shadow:inset 0 -8px 15px #0008;transition:filter .05s,box-shadow .05s,background .05s}
+.virtual-led.on{background:#ff3232;box-shadow:0 0 26px #ff3b3b,inset 0 -6px 10px #9b0808;filter:brightness(1.25)}
+.astable-readout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.astable-readout div{background:#071a27;border:1px solid #325b72;border-radius:8px;padding:8px;text-align:center}
+.astable-readout b{display:block;color:#50ffd0;font-size:16px}
+.dual-scope-trace1{fill:none;stroke:#50ffca;stroke-width:2.5}
+.dual-scope-trace2{fill:none;stroke:#ffd54a;stroke-width:2.5}
+.dual-scope-cap{fill:none;stroke:#ff78c8;stroke-width:2.3}
+@media(max-width:950px){.astable-lab{grid-template-columns:1fr}}
+
+/* v1.0.1 — assinatura visual DGandra */
+.dgandra-signature{
+  position:fixed;
+  right:14px;
+  bottom:10px;
+  z-index:35;
+  width:clamp(92px,9vw,145px);
+  pointer-events:none;
+  user-select:none;
+  text-align:center;
+  opacity:.96;
+  filter:drop-shadow(0 5px 9px rgba(0,0,0,.34));
+}
+.dgandra-signature img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:155px;
+  object-fit:contain;
+  object-position:center bottom;
+  border-radius:10px;
+}
+.dgandra-signature .dgandra-credit{
+  margin-top:3px;
+  padding:4px 5px;
+  border-radius:7px;
+  background:rgba(3,18,27,.86);
+  border:1px solid rgba(59,107,134,.72);
+  color:#dcebf3;
+  font-size:clamp(8px,.65vw,10px);
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:.15px;
+  white-space:normal;
+}
+.dgandra-signature .dgandra-credit b{color:#20d5aa}
+.dgandra-signature.hidden{display:none!important}
+
+/* Reserva visual discreta nas telas internas para evitar sobreposição no rodapé. */
+body.signature-visible .footer{padding-right:170px}
+
+@media(max-width:900px){
+  .dgandra-signature{
+    width:88px;
+    right:7px;
+    bottom:7px;
+    opacity:.9;
+  }
+  .dgandra-signature img{max-height:100px}
+  .dgandra-signature .dgandra-credit{font-size:7px;padding:3px}
+  body.signature-visible .footer{padding-right:105px}
+}
+@media(max-width:620px){
+  .dgandra-signature{width:72px;opacity:.86}
+  .dgandra-signature img{max-height:82px}
+  .dgandra-signature .dgandra-credit{font-size:6px}
+  body.signature-visible .footer{padding-right:82px}
+}
+
+.demo-ribbon{position:fixed;right:16px;bottom:16px;z-index:9999;background:#06111be8;border:1px solid #20d5aa88;color:#52ffd3;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;letter-spacing:.7px;box-shadow:0 8px 24px #0008}.demo-site-link{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.demo-finish{max-width:820px;margin:40px auto}.demo-finish h2{font-size:clamp(30px,5vw,50px);margin:.3em 0}.demo-finish p{font-size:17px;line-height:1.6;color:#c6d8e4}@media(max-width:700px){.demo-ribbon{left:10px;right:10px;bottom:10px;text-align:center}}
+</style></head><body><div class="app"><div class="hud"><div class="brand"><b>⚡ Circuit<span>Lab</span></b><div class="progress"><i id="bar"></i></div></div><div class="stat">⭐ <b id="score">0</b> pts</div><div class="stat hideMob">🎯 <b id="accuracy">100</b>%</div><div id="hudCredential"></div></div>
+<section id="home" class="screen active"><div class="hero"><div class="homebox"><div style="color:var(--a);font-weight:900">LABORATÓRIO VIRTUAL DE ELETRÔNICA</div><h1>Circuit<span>Lab</span></h1><p>Um jogo de Análise, cálculo e validação de circuitos.</p><div class="card"><h2>Matrícula do aluno</h2><p class="small">Preencha seus dados para gerar sua credencial de acesso ao CircuitLab.</p><div class="identity"><label class="fieldlabel">Nome<input id="studentName" placeholder="Nome do aluno" oninput="updateCredentialPreview()"></label><label class="fieldlabel">Gênero<select id="studentGender" onchange="updateCredentialPreview()"><option value="">Selecione...</option><option value="M">Masculino</option><option value="F">Feminino</option><option value="N">Prefiro não dizer</option></select></label></div><p><button class="primary" onclick="createStudent()">Fazer matrícula e iniciar</button></p><div id="credentialFeedback" class="feedback"></div></div><div class="card"><h2>🔑 Continuar com cheatcode</h2><div class="inputrow"><input id="cheatInput" style="min-width:360px" placeholder="Cole seu código de continuidade (CL3-...)"><button class="secondary" onclick="restoreCheat()">Restaurar</button></div><div id="cheatFeedback" class="feedback"></div></div></div><div class="enrollment-preview" id="credentialPreview"></div></div></section>
+<section id="map" class="screen"><div class="card"><h2>⚡ Trilha CircuitLab — Partes 1, 2 e 3</h2><p id="welcome"></p><div class="levels" id="levels"></div><p><button class="secondary" onclick="show('home')">Tela inicial</button></p></div></section>
+<section id="game" class="screen"><div class="card mission"><h2 id="title"></h2><p id="intro"></p></div><div id="stage"></div></section><div class="footer">CircuitLab • Laboratório Virtual de Eletrônica</div></div>
+<div id="dgandraSignature" class="dgandra-signature hidden" aria-hidden="true">
+  <img src="https://raw.githubusercontent.com/ProfGandra/CircuitLab/main/assets/dgandra_instrutor.png" alt="">
+  <div class="dgandra-credit">Desenvolvido por <b>DGandra</b> - 2026</div>
+</div>
+<script>
+const names=['Resistência elétrica','Resistores em série','Resistores em paralelo','Circuitos resistivos mistos','Treinamento — Multímetro','Teoria × medição','Lei de Ohm na prática','KVL — Lei das Tensões de Kirchhoff','Kirchhoff — Correntes','Desafio de análise resistiva','Capacitância elétrica','Capacitores em paralelo','Capacitores em série','Associação capacitiva mista','Multímetro e capacitores','Circuitos RC e constante de tempo','Treinamento — Osciloscópio','Carga do capacitor','Descarga do capacitor','Laboratório RC — Desafio final','Introdução aos transistores','BJT NPN e PNP','Junções e polarização','Correntes no BJT','Ganho de corrente β','Regiões de operação','Transistor como chave','Polarização CC','Medição e diagnóstico de BJT','Laboratório — Multivibrador astável'];
+const theory=[
+['Resistência elétrica','A resistência elétrica representa a oposição à passagem da corrente elétrica. Sua unidade é o ohm (Ω).','1 kΩ = 1.000 Ω • 1 MΩ = 1.000.000 Ω'],
+['Associação em série','Resistores estão em série quando existe um único caminho para a corrente entre eles. A mesma corrente percorre todos.','Req = R1 + R2 + R3'],
+['Associação em paralelo','Resistores em paralelo estão ligados aos mesmos dois nós e, portanto, possuem a mesma tensão em seus terminais.','1/Req = 1/R1 + 1/R2 + ...'],
+['Circuitos mistos','Uma rede mista combina blocos série e paralelo. Identifique os nós e reduza primeiro os blocos internos.','Reduza R2 ∥ R3; depois some os elementos em série.'],
+['Multímetro digital','O multímetro exige função e conexão corretas. Antes de medir, identifique a grandeza e verifique onde as pontas estão conectadas.','Ω/continuidade: desenergizado • V⎓: paralelo • mA/A⎓: série'],
+['Teoria × medição','Resistores possuem tolerância e instrumentos possuem resolução. Uma leitura realista pode diferir ligeiramente do valor nominal.','Compare cálculo e medição usando uma tolerância adequada.'],
+['Lei de Ohm','Tensão, corrente e resistência são relacionadas pela Lei de Ohm.','V = R·I • I = V/R • R = V/I'],
+['KVL — Lei das Tensões de Kirchhoff','Pela KVL (Kirchhoff’s Voltage Law), a soma algébrica das tensões em uma malha fechada é zero.','Vfonte = V1 + V2 + V3'],
+['Lei das Correntes de Kirchhoff','Em um nó, a soma das correntes que entram é igual à soma das correntes que saem.','ΣIentrando = ΣIsaindo'],
+['Desafio final','Combine associação de resistores, Lei de Ohm, KVL e instrumentação.','Analise a topologia antes de escolher a fórmula ou o instrumento.'],
+['Capacitância elétrica','Capacitância é a capacidade de armazenar carga elétrica. Sua unidade é o farad (F).','1 µF=10⁻⁶ F • 1 nF=10⁻⁹ F • 1 pF=10⁻¹² F'],
+['Capacitores em paralelo','Em paralelo, os capacitores compartilham os mesmos dois nós.','Ceq=C1+C2+...'],
+['Capacitores em série','Em série, a capacitância equivalente é menor que a menor capacitância individual.','1/Ceq=1/C1+1/C2+...'],
+['Associação capacitiva mista','Reduza os blocos em paralelo e em série progressivamente.','Analise a topologia antes de calcular.'],
+['Medição de capacitância','Capacitores devem estar desenergizados e descarregados antes da medição.','Selecione CAP/F e conecte uma ponta a cada terminal.'],
+['Circuito RC','A constante de tempo define a velocidade de carga e descarga.','τ=R·C • carga em 1τ≈63,2% • descarga em 1τ≈36,8%'],
+['Osciloscópio','O osciloscópio mostra a tensão em função do tempo. CH1 mede em relação ao GND.','VOLTS/DIV=vertical • TIME/DIV=horizontal • trigger=estabilização'],
+['Carga RC','Na carga, Vc cresce exponencialmente em direção à tensão da fonte.','Vc(t)=V(1−e^(−t/RC))'],
+['Descarga RC','Na descarga, Vc decresce exponencialmente em direção a zero.','Vc(t)=V0·e^(−t/RC)'],
+['Laboratório RC','Integre cálculo, multímetro e osciloscópio para validar o comportamento transitório.','Calcule → conecte → meça → compare → valide.'],
+['Introdução aos transistores','O transistor é um dispositivo semicondutor usado para amplificação e chaveamento. Nesta parte trabalharemos principalmente com BJTs.','Terminais: Base (B) • Coletor (C) • Emissor (E)'],
+['BJT NPN e PNP','Nos BJTs NPN e PNP, a seta do emissor ajuda a identificar o tipo. No NPN, a corrente convencional principal entra pelo coletor e sai pelo emissor.','NPN: seta para fora • PNP: seta para dentro'],
+['Junções e polarização','A junção base-emissor de um BJT de silício se comporta aproximadamente como uma junção PN quando diretamente polarizada.','VBE ≈ 0,6 a 0,7 V em condução'],
+['Correntes no BJT','Pela conservação de corrente no transistor, a corrente do emissor é a soma das correntes de coletor e base.','IE = IC + IB'],
+['Ganho de corrente β','Na região ativa, o ganho de corrente β relaciona aproximadamente IC e IB.','IC ≈ β·IB'],
+['Regiões de operação','O BJT pode operar em corte, região ativa ou saturação. Em chaveamento, corte representa desligado e saturação representa ligado.','Corte: IB≈0 • Ativa: IC≈βIB • Saturação: VCE≈VCE(sat)'],
+['Transistor como chave','Um resistor de base limita IB. Para chaveamento confiável, o transistor deve receber corrente de base suficiente para entrar em saturação.','RB ≈ (Vcontrole−VBE)/IB'],
+['Polarização CC','A análise CC usa VB, VE, VC e VCE para determinar o ponto de operação.','VCE = VC − VE'],
+['Medição e diagnóstico de BJT','Com o circuito desenergizado, a função teste de diodo permite verificar as junções base-emissor e base-coletor.','NPN: junções conduzem com ponta positiva na base'],
+['Multivibrador astável','Dois BJTs acoplados por capacitores alternam entre corte e saturação. As tensões dos capacitores variam exponencialmente e provocam a comutação.','t1≈0,693·R1·C1 • t2≈0,693·R2·C2 • T=t1+t2 • f=1/T']];
+const $=id=>document.getElementById(id); const levels=$('levels'),stage=$('stage'),title=$('title'),intro=$('intro');
+let L=1,step=-1,levelScore=0,attempts=0,correct=0,cfg={},meterMode='OFF',student=null,totalScore=0,maxUnlocked=1;
+const wire='stroke="#253746" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+function profile(){try{return JSON.parse(localStorage.getItem('circuitlab_profile')||'null')}catch{return null}}
+function store(){localStorage.setItem('circuitlab_profile',JSON.stringify({student,totalScore,maxUnlocked,completed:completed()}))}
+function completed(){let p=profile();return p?.completed||{}}
+function avatar(g){
+ const female=g==='F', neutral=g==='N';
+ const hair=neutral?'#5b6470':female?'#6b3f2a':'#4b3428';
+ const face=neutral?'#d9b38c':female?'#e7b184':'#dca679';
+ const hairPath=neutral
+ ?'<path d="M27 40c2-18 12-27 29-27s27 9 29 27c-9-7-18-10-29-10s-20 3-29 10z" fill="'+hair+'"/>'
+ :female
+ ?'<path d="M22 44c0-23 13-33 34-33s34 12 34 35c0 17-5 29-11 36l-8-11c4-8 6-16 5-27-5-9-13-14-22-14-10 0-18 5-23 15-1 11 2 20 6 28l-9 10c-5-8-6-23-6-39z" fill="'+hair+'"/>'
+ :'<path d="M27 39c2-18 12-27 29-27 18 0 28 10 29 29-8-8-18-12-29-12-11 0-21 4-29 10z" fill="'+hair+'"/>';
+ return `<svg viewBox="0 0 112 126" role="img" aria-label="Avatar genérico com óculos de proteção">
+ <rect x="4" y="4" width="104" height="118" rx="20" fill="#dce8ee"/>
+ ${hairPath}
+ <ellipse cx="56" cy="57" rx="29" ry="34" fill="${face}"/>
+ <path d="M42 71c8 7 20 7 28 0" fill="none" stroke="#8b4d3b" stroke-width="3" stroke-linecap="round"/>
+ <circle cx="45" cy="56" r="2.6" fill="#222"/><circle cx="67" cy="56" r="2.6" fill="#222"/>
+ <g fill="none" stroke="#253746" stroke-width="3" stroke-linecap="round">
+ <rect x="34" y="49" width="19" height="14" rx="6"/><rect x="59" y="49" width="19" height="14" rx="6"/>
+ <path d="M53 54c2-2 4-2 6 0M34 53l-8-2M78 53l8-2"/>
+ </g>
+ <path d="M26 105c7-15 17-22 30-22s23 7 30 22v17H26z" fill="#303941"/>
+ <path d="M56 84v38" stroke="#1f2a30" stroke-width="3"/>
+ </svg>`;
+}
+function barcodeCode(name='ALUNO'){return (name.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Z0-9]/g,'').slice(0,10)+'2600000000').slice(0,10)}
+function credentialMarkup(person,compact=false){let p=person||{name:'NOME DO ALUNO',gender:'N'},name=p.name||'NOME DO ALUNO',gender=p.gender||'N',code=barcodeCode(name);return `<div class="credential ${compact?'hudcard':''}"><div class="senai-logo"><img src="https://raw.githubusercontent.com/ProfGandra/CircuitLab/main/assets/senai_sp.png" alt="SENAI-SP"></div><div class="avatar" aria-label="Avatar genérico">${avatar(gender)}</div><div class="student-name">${esc(name)}</div><div class="card-label">ALUNO • CIRCUITLAB</div><div class="barcode" title="Código de barras genérico ${code}"></div><div class="barcode-id">${code}</div></div>`}
+function credentialHTML(compact=false){return student?credentialMarkup(student,compact):''}
+function updateCredentialPreview(){let n=$('studentName')?.value.trim()||'NOME DO ALUNO',g=$('studentGender')?.value||'N';let box=$('credentialPreview');if(box)box.innerHTML=credentialMarkup({name:n,gender:g})}
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function createStudent(){let name=$('studentName').value.trim(),gender=$('studentGender').value;if(!name||!gender){$('credentialFeedback').innerHTML='<span class="bad">Informe nome e gênero para concluir a matrícula.</span>';return}$('credentialFeedback').innerHTML='';student={name,gender};totalScore=0;maxUnlocked=1;localStorage.removeItem('circuitlab_profile');store();openMap()}
+function show(id){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+ $(id).classList.add('active');
+
+ const sig=$('dgandraSignature');
+ if(id==='home'){
+   sig?.classList.add('hidden');
+   document.body.classList.remove('signature-visible');
+   $('hudCredential').innerHTML='';
+   $('score').textContent='0';
+   $('accuracy').textContent='100';
+ }else{
+   sig?.classList.remove('hidden');
+   document.body.classList.add('signature-visible');
+   $('hudCredential').innerHTML=credentialHTML(true);
+   $('score').textContent=totalScore;
+ }
+}
+function openMap(){if(typeof astableState!=='undefined'&&astableState.raf){cancelAnimationFrame(astableState.raf);astableState.running=false;}if(!student){let p=profile();if(p){student=p.student;totalScore=p.totalScore||0;maxUnlocked=p.maxUnlocked||1}else{return show('home')}}show('map');$('welcome').innerHTML=`Jogador: <b>${esc(student.name)}</b> • Pontuação acumulada: <b>${totalScore}</b>`;renderMap();hud()}
+function renderMap(){let comp=completed();levels.innerHTML=names.slice(0,6).map((n,i)=>{let k=i+1,d=!!comp[k],lock=k>maxUnlocked;return `<div class="level ${d?'done':''} ${lock?'locked':''}"><b>Nível ${k} ${d?'✅':''}</b><div>${n}</div><small>${d?`Concluído • melhor nível: ${comp[k].best||0} pts`:lock?'🔒 Conclua o nível anterior':'▶ Disponível'}</small>${!lock?`<br><button class="${d?'secondary':'primary'}" onclick="startLevel(${k})">${d?'Refazer':'Jogar'}</button>`:''}</div>`}).join('')}
+function hud(){$('score').textContent=totalScore+levelScore;$('accuracy').textContent=attempts?Math.round(correct/attempts*100):100;$('bar').style.width=(step<0?0:Math.min(100,step/taskCount(L)*100))+'%';$('hudCredential').innerHTML=credentialHTML(true)}
+function pick(a){return a[Math.floor(Math.random()*a.length)]} function rfmt(v){return v>=1e6?(v/1e6).toLocaleString('pt-BR')+' MΩ':v>=1000?(v/1000).toLocaleString('pt-BR')+' kΩ':v+' Ω'}
+function newCfg(){const Rs=[220,330,470,680,1000,1200,1500,1800,2200,2700,3300,3900,4700,5600,6800,8200,10000],Vs=[5,6,9,10,12,15,18,24];let a=pick(Rs),b=pick(Rs.filter(x=>x!==a)),c=pick(Rs.filter(x=>x!==a&&x!==b));return{r1:a,r2:b,r3:c,r4:pick([220,330,470,680,1000]),v:pick(Vs),measFactor:pick([.982,.989,.994,1.006,1.011,1.018])}}
+function startLevel(n){if(n>6){return demoFinished()}if(astableState&&astableState.raf){cancelAnimationFrame(astableState.raf);astableState.running=false;}L=n;step=-1;levelScore=0;attempts=0;correct=0;cfg=newCfg();
+cfg.c1=pick([1e-6,2.2e-6,4.7e-6,10e-6,22e-6,47e-6,100e-6]);
+cfg.c2=pick([1e-6,2.2e-6,4.7e-6,10e-6,22e-6,47e-6]);
+cfg.c3=pick([1e-6,2.2e-6,4.7e-6,10e-6,22e-6]);
+cfg.rcR=pick([1000,2200,4700,10000,22000]); cfg.rcC=pick([10e-6,22e-6,47e-6,100e-6]);
+cfg.scopeV=pick([5,9,10,12]); cfg.scopeF=pick([100,200,500,1000]);
+cfg.beta=pick([80,100,120,150,180,200]);
+cfg.vbe=pick([.65,.67,.68,.70]); cfg.vcesat=pick([.15,.18,.20,.22]);
+cfg.rb=pick([4700,6800,10000,15000,22000,33000,47000]);
+cfg.rc=pick([470,680,1000,1200,1500,2200]);
+cfg.ledR=pick([220,330,470,680,1000]);
+cfg.ctrlV=pick([5,6,9,10,12]);
+cfg.astR1=pick([22000,33000,47000,68000,100000]);
+cfg.astR2=pick([22000,33000,47000,68000,100000]);
+cfg.astC1=pick([4.7e-6,10e-6,22e-6,47e-6]);
+cfg.astC2=pick([4.7e-6,10e-6,22e-6,47e-6]);meterMode='OFF';probeState={red:null,black:null};title.textContent=`Nível ${n} — ${names[n-1]}`;intro.textContent='Revise a introdução teórica antes de iniciar.';show('game');render();hud()}
+function taskCount(n){
+ if(n===5)return 5;
+ if([6,7,8,9].includes(n))return 4;
+ if(n===10)return 5;
+ if([11,12,13,14,15,16].includes(n))return 4;
+ if(n===17)return 5;
+ if([18,19].includes(n))return 4;
+ if(n===20)return 6;
+ if([21,22,23,24,25,26,27,28,29].includes(n))return 4;
+ if(n===30)return 6;
+ return 3;
+}
+function award(n){levelScore=Math.max(0,levelScore+n);hud()}
+function tryOk(ok,msg='Correto!'){attempts++;let f=document.querySelector('.feedback');if(ok){correct++;award(100);if(f)f.innerHTML=`<span class="ok">✓ ${msg}</span>`;setTimeout(()=>{step++;render()},550)}else{award(-10);if(f)f.innerHTML='<span class="bad">Ainda não. Revise o conceito, as unidades e o circuito.</span>'}hud()}
+function parseVal(s){s=(s||'').trim().toLowerCase().replace(/\s/g,'').replace(/,/g,'.').replace(/ω/g,'ohm');let mult=1;if(s.includes('mohm'))mult=1e6;else if(s.includes('kohm')||/k/.test(s))mult=1e3;else if(s.includes('ma'))mult=1e-3;else if(s.includes('mv'))mult=1e-3;s=s.replace(/mohm|kohm|ohms?|k|ma|mv|a|v|%/g,'');return parseFloat(s)*mult}
+function num(expected,tol=.02){let v=parseVal($('answer').value);tryOk(Number.isFinite(v)&&Math.abs(v-expected)<=Math.max(Math.abs(expected*tol),1e-9),'Resultado dentro da tolerância.')}
+function multi(vals,tol=.025){let ok=vals.every((v,i)=>{let x=parseVal($('a'+i).value);return Number.isFinite(x)&&Math.abs(x-v)<=Math.max(Math.abs(v*tol),.01)});tryOk(ok,'Os valores validam a KVL dentro da tolerância.')}
+function hint(t){return `<div class="hintbox"><img src="instrutor.png"><div><b>💡 Dica</b><p>${t}</p></div></div>`}
+function theoryScreen(){let t=theory[L-1];return `<div class="theory theory-banner"><img src="instrutor.png"><div><div class="randomtag">📘 INTRODUÇÃO TEÓRICA</div><h2>${t[0]}</h2><p>${t[1]}</p><div class="formula">${t[2]}</div><p class="small">Os valores são sorteados a cada nova tentativa.</p><button class="primary" onclick="step=0;render()">Começar exercícios</button></div></div>`}
+
+function resistorBody(cx,y,w,label,value){
+  return `<g font-family="Arial" text-anchor="middle">
+    <rect x="${cx-w/2}" y="${y-22}" width="${w}" height="44" rx="10"
+      fill="#d7b36c" stroke="#735526" stroke-width="2"/>
+    <text x="${cx}" y="${y-34}" font-weight="700">${label}</text>
+    <text x="${cx}" y="${y+6}">${value}</text>
+  </g>`;
+}
+function battery(x,y,label){
+  return `<g font-family="Arial">
+    <path d="M${x} ${y-78} V${y-20} M${x} ${y+20} V${y+78}" ${wire}/>
+    <line x1="${x-24}" y1="${y-20}" x2="${x+24}" y2="${y-20}" stroke="#253746" stroke-width="7"/>
+    <line x1="${x-13}" y1="${y+20}" x2="${x+13}" y2="${y+20}" stroke="#253746" stroke-width="4"/>
+    <text x="${x-50}" y="${y+6}" font-weight="700">${label} V</text>
+    <text x="${x+31}" y="${y-28}">+</text><text x="${x+31}" y="${y+34}">−</text>
+  </g>`;
+}
+function isolated(){
+  return `<div class="isolated">${[['R1',cfg.r1],['R2',cfg.r2],['R3',cfg.r3]]
+    .map(r=>`<div class="component">${r[0]}<div class="body"></div>${rfmt(r[1])}</div>`).join('')}</div>`;
+}
+/* Nível 2: A — R1 — R2 — R3 — B. Uma única linha condutiva contínua. */
+function svgSeries(){
+  return `<div class="circuit"><svg viewBox="0 0 650 250">
+    <path d="M55 125 H595" ${wire}/>
+    <circle cx="45" cy="125" r="10" fill="#20d5aa"/><path d="M45 125 H55" ${wire}/>
+    <circle cx="605" cy="125" r="10" fill="#20d5aa"/><path d="M595 125 H605" ${wire}/>
+    <text x="45" y="160" text-anchor="middle">A</text><text x="605" y="160" text-anchor="middle">B</text>
+    ${resistorBody(155,125,95,'R1',rfmt(cfg.r1))}
+    ${resistorBody(325,125,95,'R2',rfmt(cfg.r2))}
+    ${resistorBody(495,125,95,'R3',rfmt(cfg.r3))}
+  </svg></div>`;
+}
+/* Nível 3: R1 e R2 compartilham EXATAMENTE os nós A e B. */
+function svgParallel(){
+  return `<div class="circuit"><svg viewBox="0 0 650 300">
+    <circle cx="70" cy="150" r="10" fill="#20d5aa"/>
+    <circle cx="580" cy="150" r="10" fill="#20d5aa"/>
+    <text x="70" y="185" text-anchor="middle">A</text><text x="580" y="185" text-anchor="middle">B</text>
+    <path d="M80 150 H135 M135 150 V75 H515 V150 M515 150 H570" ${wire}/>
+    <path d="M135 150 V225 H515 V150" ${wire}/>
+    <circle cx="135" cy="150" r="6" fill="#20d5aa"/><circle cx="515" cy="150" r="6" fill="#20d5aa"/>
+    ${resistorBody(325,75,120,'R1',rfmt(cfg.r1))}
+    ${resistorBody(325,225,120,'R2',rfmt(cfg.r2))}
+  </svg></div>`;
+}
+/* Nível 4/10: A — R1 — (R2 || R3) — R4 — B. */
+function svgMixed(energized=false){
+  if(!energized){
+    return `<div class="circuit"><svg viewBox="0 0 760 360">
+      <circle cx="45" cy="180" r="10" fill="#20d5aa"/><text x="45" y="215" text-anchor="middle">A</text>
+      <circle cx="715" cy="180" r="10" fill="#20d5aa"/><text x="715" y="215" text-anchor="middle">B</text>
+      <path d="M55 180 H260" ${wire}/>
+      <path d="M260 180 V110 H500 V180 M260 180 V250 H500 V180" ${wire}/>
+      <path d="M500 180 H705" ${wire}/>
+      <circle cx="260" cy="180" r="6" fill="#20d5aa"/><circle cx="500" cy="180" r="6" fill="#20d5aa"/>
+      ${resistorBody(155,180,90,'R1',rfmt(cfg.r1))}
+      ${resistorBody(380,110,110,'R2',rfmt(cfg.r2))}
+      ${resistorBody(380,250,110,'R3',rfmt(cfg.r3))}
+      ${resistorBody(605,180,90,'R4',rfmt(cfg.r4))}
+    </svg></div>`;
+  }
+  return `<div class="circuit"><svg viewBox="0 0 760 390">
+    ${battery(85,195,cfg.v)}
+    <path d="M85 117 H260" ${wire}/>
+    <path d="M260 117 V80 H500 V117 M260 117 V175 H500 V117" ${wire}/>
+    <path d="M500 117 H675 V315 H85 V273" ${wire}/>
+    <circle cx="260" cy="117" r="6" fill="#20d5aa"/><circle cx="500" cy="117" r="6" fill="#20d5aa"/>
+    ${resistorBody(165,117,90,'R1',rfmt(cfg.r1))}
+    ${resistorBody(380,80,110,'R2',rfmt(cfg.r2))}
+    ${resistorBody(380,175,110,'R3',rfmt(cfg.r3))}
+    ${resistorBody(590,117,90,'R4',rfmt(cfg.r4))}
+  </svg></div>`;
+}
+/* Nível 7: fonte e R1 em uma malha fechada, com indicação de corrente afastada dos rótulos. */
+function svgOhm(){
+  return `<div class="circuit"><svg viewBox="0 0 620 330">
+    ${battery(100,165,cfg.v)}
+    <path d="M100 87 H520 V265 H100 V243" ${wire}/>
+    ${resistorBody(340,87,140,'R1',rfmt(cfg.r1))}
+    <defs><marker id="arrowI" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#167bb2"/></marker></defs>
+    <path d="M155 48 H245" stroke="#167bb2" stroke-width="4" fill="none" marker-end="url(#arrowI)"/>
+    <text x="195" y="35" text-anchor="middle" font-family="Arial" font-weight="700">I = ?</text>
+  </svg></div>`;
+}
+/* Nível 8: KVL em uma única malha realmente fechada. */
+function svgKvl(){
+  return `<div class="circuit"><svg viewBox="0 0 760 360">
+    ${battery(90,180,cfg.v)}
+    <path d="M90 102 H690 V300 H90 V258" ${wire}/>
+    ${resistorBody(215,102,100,'R1',rfmt(cfg.r1))}
+    ${resistorBody(390,102,100,'R2',rfmt(cfg.r2))}
+    ${resistorBody(565,102,100,'R3',rfmt(cfg.r3))}
+  </svg></div>`;
+}
+
+let probeState={red:null,black:null};
+function measureCircuitSVG(kind){
+ if(kind==='resistance') return `<svg viewBox="0 0 650 330">
+   <path d="M135 165 H515" ${wire}/>${resistorBody(325,165,150,'R1',rfmt(cfg.r1))}
+   <circle class="measure-target" cx="215" cy="165" r="17"/><circle class="measure-target" cx="435" cy="165" r="17"/>
+   <text x="325" y="275" text-anchor="middle" font-family="Arial" font-weight="700">Circuito DESENERGIZADO</text>
+   <text x="215" y="205" text-anchor="middle">terminal 1</text><text x="435" y="205" text-anchor="middle">terminal 2</text>
+ </svg>`;
+ if(kind==='voltage') return `<svg viewBox="0 0 650 330">
+   ${battery(95,170,cfg.v)}<path d="M95 92 H555 V268 H95 V248" ${wire}/>
+   ${resistorBody(330,92,150,'R1',rfmt(cfg.r1))}
+   <circle class="measure-target" cx="250" cy="92" r="17"/><circle class="measure-target" cx="410" cy="92" r="17"/>
+   <text x="330" y="305" text-anchor="middle" font-family="Arial" font-weight="700">Meça em PARALELO com R1</text>
+ </svg>`;
+ if(kind==='kvl') return `<svg viewBox="0 0 650 330">
+   ${battery(75,170,cfg.v)}<path d="M75 92 H575 V268 H75 V248" ${wire}/>
+   ${resistorBody(180,92,95,'R1',rfmt(cfg.r1))}${resistorBody(325,92,95,'R2',rfmt(cfg.r2))}${resistorBody(470,92,95,'R3',rfmt(cfg.r3))}
+   <circle class="measure-target" cx="417" cy="92" r="17"/><circle class="measure-target" cx="523" cy="92" r="17"/>
+   <text x="470" y="305" text-anchor="middle" font-family="Arial" font-weight="700">Meça a queda em R3</text>
+ </svg>`;
+ if(kind==='current'||kind==='currentTotal') return `<svg viewBox="0 0 650 330">
+   ${battery(85,170,cfg.v)}
+   <path d="M85 92 H255 M395 92 H555 V268 H85 V248" ${wire}/>
+   <circle class="measure-target" cx="255" cy="92" r="18"/><circle class="measure-target" cx="395" cy="92" r="18"/>
+   <text x="325" y="76" text-anchor="middle" font-family="Arial" font-weight="700">ABERTURA PARA INSERIR O AMPERÍMETRO</text>
+   ${resistorBody(475,92,105,'R1',rfmt(cfg.r1))}
+   <text x="325" y="305" text-anchor="middle" font-family="Arial" font-weight="700">Instrumento em SÉRIE</text>
+ </svg>`;
+ if(kind==='branchCurrent') return `<svg viewBox="0 0 650 330">
+   <path d="M80 165 H145 M145 165 V95 H255 M395 95 H510 V165 H570 M145 165 V235 H510 V165" ${wire}/>
+   ${resistorBody(465,235,105,'R3',rfmt(cfg.r3))}
+   <circle class="measure-target" cx="255" cy="95" r="18"/><circle class="measure-target" cx="395" cy="95" r="18"/>
+   <text x="325" y="70" text-anchor="middle" font-family="Arial" font-weight="700">Ramo aberto para medir I3</text>
+   <circle cx="145" cy="165" r="6" fill="#20d5aa"/><circle cx="510" cy="165" r="6" fill="#20d5aa"/>
+ </svg>`;
+ return '';
+}
+function practicalMeasure(kind,mode,reading,titleText,instruction){
+ const unit=mode==='OHM'?'Ω':mode==='VDC'?'V':'mA';
+ const shown=reading==null?'---':(mode==='OHM'?rfmt(reading):mode==='ADC'?(reading*1000).toFixed(2)+' mA':reading.toFixed(2)+' V');
+ return `<div class="grid">
+   <div>
+    <div class="measure-bench" id="measureBench">${measureCircuitSVG(kind)}
+      <div class="probe black" id="probeBlack" style="left:16%;top:90%" onpointerdown="dragProbe(event,'black')"><i class="handle"></i><i class="guard"></i><i class="neck"></i><i class="tip"></i><i class="dot"></i></div>
+      <div class="probe red" id="probeRed" style="left:84%;top:90%" onpointerdown="dragProbe(event,'red')"><i class="handle"></i><i class="guard"></i><i class="neck"></i><i class="tip"></i><i class="dot"></i></div>
+      <div class="bench-note">Arraste as extremidades das duas pontas até os círculos verdes.</div>
+    </div>
+   </div>
+   <div class="card"><h2>${titleText}</h2><p>${instruction}</p>
+    ${meterHTML('---')}
+    <div class="measure-status">Função selecionada: <b>${meterMode}</b><br>Pontas posicionadas: <b id="probeStatus">0/2</b></div>
+    <p><button class="primary" onclick="validatePractical('${kind}','${mode}',${reading})">Realizar medição</button></p>
+    <div class="feedback"></div>
+   </div>
+ </div>`;
+}
+function dragProbe(ev,color){
+ ev.preventDefault();
+ const el=ev.currentTarget,bench=$('measureBench'),r=bench.getBoundingClientRect();
+ el.setPointerCapture(ev.pointerId);
+ function move(e){
+   let x=Math.max(15,Math.min(r.width-15,e.clientX-r.left));
+   let y=Math.max(20,Math.min(r.height-5,e.clientY-r.top));
+   el.style.left=x+'px';el.style.top=y+'px';
+ }
+ function up(e){
+   move(e);el.releasePointerCapture(ev.pointerId);
+   let er=el.getBoundingClientRect();
+   // Electrical contact is validated at the END OF THE METALLIC NEEDLE.
+   let x=(er.left-r.left)+(er.width/2);
+   let y=(er.top-r.top)+(er.height*0.94);
+   let targets=[...bench.querySelectorAll('.measure-target')].map(c=>{
+     let vb=c.ownerSVGElement.viewBox.baseVal,br=c.ownerSVGElement.getBoundingClientRect();
+     return {x:(c.cx.baseVal.value-vb.x)/vb.width*br.width+(br.left-r.left),
+             y:(c.cy.baseVal.value-vb.y)/vb.height*br.height+(br.top-r.top)};
+   });
+   let nearest=-1,dist=1e9;
+   targets.forEach((t,i)=>{let d=Math.hypot(x-t.x,y-t.y);if(d<dist){dist=d;nearest=i}});
+   probeState[color]=dist<30?nearest:null;
+   if(probeState[color]!==null){
+     let t=targets[nearest];
+     // left/top are the probe anchor; set them so the needle endpoint, not handle, touches the node.
+     el.style.left=t.x+'px';
+     el.style.top=(t.y+8)+'px';
+   }
+   updateProbeStatus();
+   el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);
+ }
+ el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);
+}
+function updateProbeStatus(){
+ let n=(probeState.red!==null?1:0)+(probeState.black!==null?1:0),s=$('probeStatus');if(s)s.textContent=n+'/2';
+}
+function validatePractical(kind,mode,reading){
+ attempts++;
+ let f=document.querySelector('.feedback');
+ let modeOK=meterMode===mode;
+ let probesOK=probeState.red!==null&&probeState.black!==null&&probeState.red!==probeState.black;
+ if(!modeOK){
+   award(-10);if(f)f.innerHTML=`<span class="bad">Selecione ${mode==='OHM'?'Ω':mode==='VDC'?'V⎓':'mA⎓'} no multímetro antes de medir.</span>`;hud();return;
+ }
+ if(!probesOK){
+   award(-10);if(f)f.innerHTML='<span class="bad">Posicione uma ponta em cada círculo verde. As duas pontas não podem ocupar o mesmo ponto.</span>';hud();return;
+ }
+ correct++;award(120);
+ let unit=mode==='OHM'?'Ω':mode==='VDC'?'V':'mA';
+ let display=mode==='OHM'?rfmt(reading):mode==='ADC'?(reading*1000).toFixed(2)+' mA':reading.toFixed(2)+' V';
+ if(f)f.innerHTML=`<span class="ok">✓ Medição correta. Display: <b>${display}</b></span>`;
+ setTimeout(()=>{probeState={red:null,black:null};step++;render()},1000);hud();
+}
+function meterHTML(read='0.00'){let angles={OFF:-70,OHM:-35,VDC:5,ADC:45,CONT:85,DIODE:125};let labels={OFF:'OFF',OHM:'Ω',VDC:'V⎓',ADC:'mA⎓',CONT:'🔔',DIODE:'➤|'};return `<div class="meter-real"><div class="lcd">${read}<small style="font-size:13px;margin-left:8px">${labels[meterMode]}</small></div><div class="meter-modes"><button onclick="setMeter('OHM')" class="${meterMode==='OHM'?'on':''}">Ω</button><button onclick="setMeter('VDC')" class="${meterMode==='VDC'?'on':''}">V⎓</button><button onclick="setMeter('ADC')" class="${meterMode==='ADC'?'on':''}">mA⎓</button><button onclick="setMeter('CONT')" class="${meterMode==='CONT'?'on':''}">🔔</button><button onclick="setMeter('DIODE')" class="${meterMode==='DIODE'?'on':''}">➤|</button></div><div class="meter-dial" onclick="cycleMeter()"><div class="pointer" style="transform:rotate(${angles[meterMode]??-70}deg)"></div></div><div class="meter-scale">Clique no seletor ou nas funções</div><div class="meter-labels"><span>10A</span><span>COM</span><span>VΩmA</span></div><div class="meter-jacks"><div class="jack red"><span>10A</span></div><div class="jack black"><span>COM</span></div><div class="jack red"><span>VΩmA</span></div></div><div class="leadrow"><div class="lead black"></div><div class="lead red"></div></div><div class="meter-help">Preta → COM • Vermelha → VΩmA (ou 10A para correntes elevadas)</div></div>`}
+function setMeter(m){meterMode=m;render()} function cycleMeter(){let a=['OFF','VDC','OHM','CONT','DIODE','ADC'],i=a.indexOf(meterMode);meterMode=a[(i+1)%a.length];render()}
+function meterQuestion(mode,text){return `<div class="meter-lesson"><div>${meterHTML()}</div><div class="card"><h2>Selecione a grandeza</h2><p>${text}</p><div class="statusline">Selecionado: <b>${meterMode}</b></div><button class="primary" onclick="tryOk(meterMode==='${mode}','Função correta selecionada.')">Confirmar</button><div class="feedback"></div></div></div>`}
+function render(){hud();if(step<0){stage.innerHTML=theoryScreen();return}if(step>=taskCount(L)){finish();return}stage.innerHTML=renderers[L](step)}
+
+function cfmt(c){if(c>=1e-3)return (c*1e3).toFixed(2)+' mF';if(c>=1e-6)return (c*1e6).toFixed(2)+' µF';if(c>=1e-9)return (c*1e9).toFixed(2)+' nF';return (c*1e12).toFixed(2)+' pF'}
+function capBody(cx,y,label,val){return `<g font-family="Arial" text-anchor="middle"><line x1="${cx-65}" y1="${y}" x2="${cx-9}" y2="${y}" ${wire}/><line x1="${cx-9}" y1="${y-28}" x2="${cx-9}" y2="${y+28}" stroke="#253746" stroke-width="6"/><line x1="${cx+9}" y1="${y-28}" x2="${cx+9}" y2="${y+28}" stroke="#253746" stroke-width="6"/><line x1="${cx+9}" y1="${y}" x2="${cx+65}" y2="${y}" ${wire}/><text x="${cx}" y="${y-40}" font-weight="700">${label}</text><text x="${cx}" y="${y+48}">${val}</text></g>`}
+function capParallel(){return `<div class="cap-circuit"><svg viewBox="0 0 650 300"><circle cx="70" cy="150" r="10" fill="#20d5aa"/><circle cx="580" cy="150" r="10" fill="#20d5aa"/><path d="M80 150 H135 M135 150 V80 H515 V150 M135 150 V220 H515 V150 M515 150 H570" ${wire}/>${capBody(325,80,'C1',cfmt(cfg.c1))}${capBody(325,220,'C2',cfmt(cfg.c2))}<text x="70" y="185">A</text><text x="580" y="185">B</text></svg></div>`}
+function capSeries(){return `<div class="cap-circuit"><svg viewBox="0 0 650 250"><circle cx="55" cy="125" r="10" fill="#20d5aa"/><circle cx="595" cy="125" r="10" fill="#20d5aa"/><path d="M65 125 H585" ${wire}/>${capBody(210,125,'C1',cfmt(cfg.c1))}${capBody(440,125,'C2',cfmt(cfg.c2))}</svg></div>`}
+function rcSvg(){return `<div class="cap-circuit"><svg viewBox="0 0 680 330">${battery(90,170,cfg.scopeV)}<path d="M90 92 H245" ${wire}/>${resistorBody(315,92,100,'R',rfmt(cfg.rcR))}<path d="M365 92 H535 V145 M535 215 V268 H90 V248" ${wire}/><line x1="500" y1="145" x2="570" y2="145" stroke="#253746" stroke-width="6"/><line x1="500" y1="215" x2="570" y2="215" stroke="#253746" stroke-width="6"/><text x="535" y="132" text-anchor="middle" font-weight="700">C</text><text x="535" y="240" text-anchor="middle">${cfmt(cfg.rcC)}</text><circle cx="535" cy="92" r="7" fill="#20d5aa"/><text x="552" y="82">CH1</text><circle cx="535" cy="268" r="7" fill="#222"/><text x="552" y="292">GND</text></svg></div>`}
+
+let scopeState={vdiv:2,tdiv:.2,trigger:1,run:true,type:'charge',tau:1,V:10};
+function nearestValue(list,target){return list.reduce((a,b)=>Math.abs(b-target)<Math.abs(a-target)?b:a,list[0])}
+function scopeInit(type,tau,V){
+  const vopts=[.1,.2,.5,1,2,5,10,20];
+  const topts=[.0001,.0002,.0005,.001,.002,.005,.01,.02,.05,.1,.2,.5,1,2,5,10];
+  let key=`${type}|${tau}|${V}`;
+  if(scopeState.key!==key){
+    scopeState={
+      key,type,tau,V,run:true,
+      vdiv:nearestValue(vopts,Math.max(V/5,.1)),
+      tdiv:nearestValue(topts,Math.max((5*tau)/8,.0001)),
+      trigger:nearestValue([.1,.2,.5,1,2,5,10],Math.max(V*.25,.1))
+    };
+  }
+}
+function scopeVoltageAt(type,t,tau,V){
+  if(t<0)return type==='charge'?0:V;
+  return type==='charge'?V*(1-Math.exp(-t/tau)):V*Math.exp(-t/tau);
+}
+function scopeTriggerTime(type,tau,V,level){
+  if(level<=0||level>=V)return 0;
+  return type==='charge'?-tau*Math.log(1-level/V):-tau*Math.log(level/V);
+}
+function formatTime(v){
+  if(v<.001)return (v*1e6).toFixed(v<.0001?1:0)+' µs';
+  if(v<1)return (v*1e3).toFixed(v<.01?1:0)+' ms';
+  return v.toFixed(v<10?2:1)+' s';
+}
+function scopeTracePoints(){
+  const W=560,H=240,left=40,bottom=270;
+  const pxPerDivX=W/8, pxPerDivY=H/6;
+  const timeSpan=scopeState.tdiv*8;
+  const voltsSpan=scopeState.vdiv*6;
+  // Put the trigger crossing about one horizontal division from the left.
+  const tt=scopeTriggerTime(scopeState.type,scopeState.tau,scopeState.V,scopeState.trigger);
+  const tStart=Math.max(0,tt-scopeState.tdiv);
+  let pts=[],clipped=false;
+  for(let i=0;i<=560;i++){
+    let t=tStart+(i/W)*timeSpan;
+    let v=scopeVoltageAt(scopeState.type,t,scopeState.tau,scopeState.V);
+    let x=left+i;
+    let y=bottom-(v/scopeState.vdiv)*pxPerDivY;
+    if(y<20||y>280)clipped=true;
+    // SVG clipping represents a real trace leaving the visible screen.
+    y=Math.max(15,Math.min(285,y));
+    pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+  return {points:pts.join(' '),clipped,tStart,timeSpan,voltsSpan};
+}
+function scopeRedraw(){
+  let trace=$('scopeTrace'),tauLine=$('scopeTau'),tauText=$('scopeTauText'),read=$('scopeReadout'),status=$('scopeRunStatus'),clip=$('scopeClip');
+  if(!trace)return;
+  let d=scopeTracePoints();
+  trace.setAttribute('points',d.points);
+  // Position 1τ according to TIME/DIV and trigger shift.
+  let x=40+((scopeState.tau-d.tStart)/d.timeSpan)*560;
+  if(tauLine){tauLine.setAttribute('x1',x);tauLine.setAttribute('x2',x);tauLine.style.display=(x>=40&&x<=600)?'block':'none'}
+  if(tauText){tauText.setAttribute('x',x+6);tauText.style.display=(x>=40&&x<=600)?'block':'none'}
+  if(read)read.textContent=`${scopeState.vdiv} V/div • ${formatTime(scopeState.tdiv)}/div • trig ${scopeState.trigger} V`;
+  if(status){status.textContent=scopeState.run?'RUN':'STOP';status.className=scopeState.run?'':'stop'}
+  if(clip)clip.textContent=d.clipped?'⚠ sinal fora da escala vertical':'';
+}
+function setScopeControl(kind,value){
+  if(kind==='vdiv')scopeState.vdiv=Number(value);
+  if(kind==='tdiv')scopeState.tdiv=Number(value);
+  if(kind==='trigger')scopeState.trigger=Number(value);
+  scopeRedraw();
+}
+function toggleScope(btn){
+  scopeState.run=!scopeState.run;
+  if(btn)btn.textContent=scopeState.run?'RUN':'STOP';
+  scopeRedraw();
+}
+function optionList(vals,current,formatter){
+  return vals.map(v=>`<option value="${v}" ${Math.abs(v-current)<1e-12?'selected':''}>${formatter(v)}</option>`).join('');
+}
+function scope(type,tau,V){
+  scopeInit(type,tau,V);
+  let d=scopeTracePoints();
+  let vopts=[.1,.2,.5,1,2,5,10,20];
+  let topts=[.0001,.0002,.0005,.001,.002,.005,.01,.02,.05,.1,.2,.5,1,2,5,10];
+  let tropts=[.1,.2,.5,1,2,5,10];
+  let tauX=40+((tau-d.tStart)/d.timeSpan)*560;
+  let tauVisible=tauX>=40&&tauX<=600;
+  return `<div class="scope">
+    <div style="display:flex;justify-content:space-between"><b>CircuitLab OSCILLOSCOPE</b><b>CH1</b></div>
+    <div class="scope-screen"><svg viewBox="0 0 640 300">
+      ${Array.from({length:9},(_,i)=>`<line class="scope-grid" x1="${40+i*70}" y1="20" x2="${40+i*70}" y2="280"/>`).join('')}
+      ${Array.from({length:7},(_,i)=>`<line class="scope-grid" x1="40" y1="${20+i*43}" x2="600" y2="${20+i*43}"/>`).join('')}
+      <polyline id="scopeTrace" class="scope-trace" points="${d.points}"/>
+      <line id="scopeTau" x1="${tauX}" y1="20" x2="${tauX}" y2="280" stroke="#ffd54a" stroke-width="2" stroke-dasharray="6 5" style="display:${tauVisible?'block':'none'}"/>
+      <text id="scopeTauText" x="${tauX+6}" y="40" fill="#ffd54a" style="display:${tauVisible?'block':'none'}">1τ</text>
+    </svg></div>
+    <div class="scope-livebar">
+      <span id="scopeReadout">${scopeState.vdiv} V/div • ${formatTime(scopeState.tdiv)}/div • trig ${scopeState.trigger} V</span>
+      <span id="scopeClip" class="scope-clipped">${d.clipped?'⚠ sinal fora da escala vertical':''}</span>
+      <span id="scopeRunStatus">${scopeState.run?'RUN':'STOP'}</span>
+    </div>
+    <div class="scope-controls">
+      <label>VOLTS/DIV
+        <select onchange="setScopeControl('vdiv',this.value)">${optionList(vopts,scopeState.vdiv,v=>v+' V')}</select>
+      </label>
+      <label>TIME/DIV
+        <select onchange="setScopeControl('tdiv',this.value)">${optionList(topts,scopeState.tdiv,formatTime)}</select>
+      </label>
+      <label>TRIGGER
+        <select onchange="setScopeControl('trigger',this.value)">${optionList(tropts,scopeState.trigger,v=>v+' V')}</select>
+      </label>
+      <label>AQUISIÇÃO
+        <button type="button" onclick="toggleScope(this)">${scopeState.run?'RUN':'STOP'}</button>
+      </label>
+    </div>
+    <p><b>CH1:</b> nó superior do capacitor • <b>GND:</b> referência 0 V</p>
+    <p class="small">Altere VOLTS/DIV ou TIME/DIV e observe a curva mudar imediatamente. Se a escala vertical for insuficiente, o traço sairá da tela, como em um osciloscópio real.</p>
+  </div>`;
+}
+
+function bjtSymbol(cx,cy,type='NPN',label='Q1'){
+ let dir=type==='NPN'?1:-1;
+ return `<g font-family="Arial">
+  <circle cx="${cx}" cy="${cy}" r="46" fill="#fff" stroke="#253746" stroke-width="3"/>
+  <line x1="${cx-65}" y1="${cy}" x2="${cx-17}" y2="${cy}" stroke="#253746" stroke-width="5"/>
+  <line x1="${cx-17}" y1="${cy-25}" x2="${cx-17}" y2="${cy+25}" stroke="#253746" stroke-width="5"/>
+  <line x1="${cx-17}" y1="${cy-15}" x2="${cx+25}" y2="${cy-48}" stroke="#253746" stroke-width="5"/>
+  <line x1="${cx-17}" y1="${cy+15}" x2="${cx+25}" y2="${cy+48}" stroke="#253746" stroke-width="5"/>
+  <line x1="${cx+25}" y1="${cy-48}" x2="${cx+25}" y2="${cy-75}" stroke="#253746" stroke-width="5"/>
+  <line x1="${cx+25}" y1="${cy+48}" x2="${cx+25}" y2="${cy+75}" stroke="#253746" stroke-width="5"/>
+  <path d="${type==='NPN'?`M${cx+10} ${cy+29} L${cx+25} ${cy+48} L${cx+3} ${cy+47}`:`M${cx+25} ${cy+48} L${cx+8} ${cy+30} L${cx+31} ${cy+29}`}" fill="#253746"/>
+  <text x="${cx-9}" y="${cy-58}" text-anchor="middle" font-weight="700">${label} ${type}</text>
+  <text x="${cx-78}" y="${cy-8}">B</text><text x="${cx+33}" y="${cy-66}">C</text><text x="${cx+33}" y="${cy+79}">E</text>
+ </g>`;
+}
+function transistorIntroSvg(type='NPN'){
+ return `<div class="transistor-circuit"><svg viewBox="0 0 560 300">${bjtSymbol(280,150,type,type==='NPN'?'Q1':'Q2')}</svg></div>`;
+}
+function switchCircuitSvg(){
+ let V=cfg.ctrlV,Rb=cfg.rb,Rc=cfg.rc;
+ return `<div class="transistor-circuit"><svg viewBox="0 0 720 380">
+ <text x="620" y="35" font-weight="700">VCC ${V} V</text><path d="M620 50 V95" ${wire}/>
+ ${resistorBody(620,145,95,'RC',rfmt(Rc))}<path d="M620 195 V240 H470" ${wire}/>
+ ${bjtSymbol(390,250,'NPN','Q1')}
+ <path d="M415 325 V350 H620" ${wire}/><text x="630" y="356">GND</text>
+ <text x="60" y="200" font-weight="700">Vcontrole ${V} V</text><path d="M150 190 H235" ${wire}/>
+ ${resistorBody(285,190,95,'RB',rfmt(Rb))}<path d="M335 190 H325 V250" ${wire}/>
+ </svg></div>`;
+}
+function astablePeriods(){
+ let t1=.693*astableState.r1*cfg.astC1;
+ let t2=.693*astableState.r2*cfg.astC2;
+ let T=t1+t2;
+ return {t1,t2,T,f:1/T,d1:t1/T,d2:t2/T};
+}
+let astableState={r1:47000,r2:47000,start:0,raf:0,running:false};
+function initAstable(){
+ if(!astableState.start){
+   astableState.r1=cfg.astR1;astableState.r2=cfg.astR2;astableState.start=performance.now()/1000;
+ }
+}
+function astablePhaseAt(t){
+ let p=astablePeriods(),u=((t-astableState.start)%p.T+p.T)%p.T;
+ return {p,u,phase:u<p.t1?0:1,local:u<p.t1?u:u-p.t1};
+}
+function astableAnalog(t){
+ let a=astablePhaseAt(t),p=a.p,V=cfg.scopeV,vs=cfg.vcesat;
+ let q1on=a.phase===0, q2on=!q1on;
+ let dur=q1on?p.t1:p.t2, x=Math.min(1,a.local/Math.max(dur,1e-9));
+ // Capacitor/base coupling: exponential movement toward VCC, clamped at B-E conduction.
+ let vbaseOff=-0.55+(cfg.vbe+0.55)*(1-Math.exp(-3.2*x));
+ let vbaseOn=cfg.vbe;
+ let vc1=q1on?vs:V-(V-vs)*Math.exp(-4*x);
+ let vc2=q2on?vs:V-(V-vs)*Math.exp(-4*x);
+ let vb1=q1on?vbaseOn:vbaseOff;
+ let vb2=q2on?vbaseOn:vbaseOff;
+ return {vc1,vc2,vb1,vb2,q1on,q2on,p:a.p};
+}
+function astableCircuitSvg(){
+ return `<div class="transistor-circuit"><svg viewBox="0 0 820 500">
+ <text x="410" y="30" text-anchor="middle" font-weight="800">MULTIVIBRADOR ASTÁVEL — DOIS BJTs NPN</text>
+ <text x="410" y="58" text-anchor="middle">VCC = ${cfg.scopeV} V</text>
+ <path d="M130 80 H690" ${wire}/>
+ ${resistorBody(220,120,90,'RC1',rfmt(cfg.rc))}${resistorBody(600,120,90,'RC2',rfmt(cfg.rc))}
+ <path d="M220 80 V98 M220 142 V210 M600 80 V98 M600 142 V210" ${wire}/>
+ ${bjtSymbol(220,285,'NPN','Q1')}${bjtSymbol(600,285,'NPN','Q2')}
+ <path d="M245 360 V420 H575 V360" ${wire}/><text x="410" y="445" text-anchor="middle">GND</text>
+ <!-- cross-coupling capacitors -->
+ <path d="M245 210 H330" ${wire}/><line x1="340" y1="180" x2="340" y2="240" stroke="#253746" stroke-width="6"/><line x1="358" y1="180" x2="358" y2="240" stroke="#253746" stroke-width="6"/><path d="M368 210 H535 V285" ${wire}/>
+ <text x="350" y="170" text-anchor="middle">C1 ${cfmt(cfg.astC1)}</text>
+ <path d="M575 210 H490" ${wire}/><line x1="480" y1="180" x2="480" y2="240" stroke="#253746" stroke-width="6"/><line x1="462" y1="180" x2="462" y2="240" stroke="#253746" stroke-width="6"/><path d="M452 210 H285 V285" ${wire}/>
+ <text x="470" y="260" text-anchor="middle">C2 ${cfmt(cfg.astC2)}</text>
+ <text x="100" y="245" font-weight="700">R1 variável</text><text x="640" y="245" font-weight="700">R2 variável</text>
+ <circle cx="245" cy="210" r="7" fill="#20d5aa"/><text x="258" y="200">VC1</text>
+ <circle cx="575" cy="210" r="7" fill="#ffd54a"/><text x="590" y="200">VC2</text>
+ </svg></div>`;
+}
+function astableScopePoints(signal){
+ let p=astablePeriods(),span=Math.max(p.T*2,0.2),pts=[];
+ for(let i=0;i<=560;i++){
+   let t=astableState.start+i/560*span, a=astableAnalog(t),v=a[signal];
+   let x=40+i, y=270-(v/cfg.scopeV)*220;
+   y=Math.max(15,Math.min(285,y));
+   pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+ }
+ return pts.join(' ');
+}
+function astableScope(){
+ let p=astablePeriods();
+ return `<div class="scope"><div style="display:flex;justify-content:space-between"><b>OSCILOSCÓPIO — ASTÁVEL</b><span>CH1 VC1 • CH2 VC2 • MATH VB2</span></div>
+ <div class="scope-screen"><svg viewBox="0 0 640 300">
+ ${Array.from({length:9},(_,i)=>`<line class="scope-grid" x1="${40+i*70}" y1="20" x2="${40+i*70}" y2="280"/>`).join('')}
+ ${Array.from({length:7},(_,i)=>`<line class="scope-grid" x1="40" y1="${20+i*43}" x2="600" y2="${20+i*43}"/>`).join('')}
+ <polyline id="astTrace1" class="dual-scope-trace1" points="${astableScopePoints('vc1')}"/>
+ <polyline id="astTrace2" class="dual-scope-trace2" points="${astableScopePoints('vc2')}"/>
+ <polyline id="astTrace3" class="dual-scope-cap" points="${astableScopePoints('vb2')}"/>
+ </svg></div>
+ <div class="scope-livebar"><span>CH1 coletor Q1</span><span>CH2 coletor Q2</span><span style="color:#ff78c8">VB2/capacitor</span></div>
+ <p class="small">Os sinais não são ondas quadradas ideais: os coletores são limitados por corte/saturação e a tensão de base/capacitor evolui exponencialmente até o limiar de comutação.</p></div>`;
+}
+function updateAstable(){
+ if(!$('astTrace1')){astableState.running=false;return}
+ let t=performance.now()/1000,a=astableAnalog(t),p=a.p;
+ $('astTrace1').setAttribute('points',astableScopePoints('vc1'));
+ $('astTrace2').setAttribute('points',astableScopePoints('vc2'));
+ $('astTrace3').setAttribute('points',astableScopePoints('vb2'));
+ $('led1').classList.toggle('on',a.q1on);
+ $('led2').classList.toggle('on',a.q2on);
+ $('astT1').textContent=p.t1.toFixed(3)+' s';$('astT2').textContent=p.t2.toFixed(3)+' s';
+ $('astF').textContent=p.f.toFixed(2)+' Hz';$('astDuty').textContent=(p.d1*100).toFixed(1)+'%';
+ if(astableState.running)astableState.raf=requestAnimationFrame(updateAstable);
+}
+function setAstR(which,val){
+ astableState[which]=Number(val);astableState.start=performance.now()/1000;
+ let el=$(which+'Val');if(el)el.textContent=rfmt(Number(val));
+ if($('astTrace1')){let p=astablePeriods();$('astTrace1').setAttribute('points',astableScopePoints('vc1'));$('astTrace2').setAttribute('points',astableScopePoints('vc2'));$('astTrace3').setAttribute('points',astableScopePoints('vb2'));$('astT1').textContent=p.t1.toFixed(3)+' s';$('astT2').textContent=p.t2.toFixed(3)+' s';$('astF').textContent=p.f.toFixed(2)+' Hz';$('astDuty').textContent=(p.d1*100).toFixed(1)+'%';}
+}
+function astableLab(){
+ initAstable();
+ setTimeout(()=>{if(!astableState.running){astableState.running=true;updateAstable()}},50);
+ let p=astablePeriods();
+ return `<div class="astable-lab"><div><div class="astable-board">${astableCircuitSvg()}
+ <div class="led-row"><div><div id="led1" class="virtual-led"></div><div style="text-align:center">LED 1 / Q1</div></div><div><div id="led2" class="virtual-led"></div><div style="text-align:center">LED 2 / Q2</div></div></div>
+ <div class="astable-controls">
+ <div class="astable-control"><label><span>R1</span><span id="r1Val">${rfmt(astableState.r1)}</span></label><input type="range" min="10000" max="150000" step="1000" value="${astableState.r1}" oninput="setAstR('r1',this.value)"></div>
+ <div class="astable-control"><label><span>R2</span><span id="r2Val">${rfmt(astableState.r2)}</span></label><input type="range" min="10000" max="150000" step="1000" value="${astableState.r2}" oninput="setAstR('r2',this.value)"></div>
+ </div>
+ <div class="astable-readout"><div>t1<b id="astT1">${p.t1.toFixed(3)} s</b></div><div>t2<b id="astT2">${p.t2.toFixed(3)} s</b></div><div>f<b id="astF">${p.f.toFixed(2)} Hz</b></div><div>Duty LED1<b id="astDuty">${(p.d1*100).toFixed(1)}%</b></div></div>
+ </div></div><div>${astableScope()}</div></div>`;
+}
+const renderers={
+1:x=>x===0?`<div class="grid"><div>${isolated()}</div><div class="card"><h2>Missão 1 — Unidade</h2><p>Qual é a unidade da resistência elétrica?</p><div class="options"><button class="option" onclick="tryOk(true)">Ohm (Ω)</button><button class="option" onclick="tryOk(false)">Volt (V)</button><button class="option" onclick="tryOk(false)">Ampère (A)</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="grid"><div>${isolated()}</div><div class="card"><h2>Missão 2 — Conversão</h2><p>Converta ${rfmt(cfg.r2)} para ohms.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${cfg.r2},.001)">Validar</button></div><div class="feedback"></div></div></div>`:`<div class="grid"><div>${isolated()}</div><div class="card"><h2>Missão 3 — Comparação</h2><p>Qual dos três resistores possui maior resistência?</p><div class="options">${[['R1',cfg.r1],['R2',cfg.r2],['R3',cfg.r3]].map(r=>`<button class="option" onclick="tryOk(${r[1]===Math.max(cfg.r1,cfg.r2,cfg.r3)})">${r[0]} — ${rfmt(r[1])}</button>`).join('')}</div><div class="feedback"></div></div></div>`,
+2:x=>{let req=cfg.r1+cfg.r2+cfg.r3;return x===0?`<div class="grid"><div>${svgSeries()}</div><div class="card"><h2>Missão 1 — Topologia</h2><p>Há um único caminho de A até B passando por R1, R2 e R3?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim, estão em série</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="grid"><div>${svgSeries()}</div><div class="card"><h2>Missão 2 — Req</h2><p>Calcule Req.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${req},.01)">Validar</button></div><div class="feedback"></div></div></div>`:`<div class="grid"><div>${svgSeries()}</div><div class="card"><h2>Missão 3 — Propriedade</h2><p>A Req calculada deve ser maior que cada resistor individual?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div></div>`},
+3:x=>{let req=cfg.r1*cfg.r2/(cfg.r1+cfg.r2),mn=Math.min(cfg.r1,cfg.r2);return x===0?`<div class="grid"><div>${svgParallel()}</div><div class="card"><h2>Missão 1 — Nós</h2><p>R1 e R2 estão conectados aos mesmos nós A e B?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim, estão em paralelo</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="grid"><div>${svgParallel()}</div><div class="card"><h2>Missão 2 — Req</h2><p>Calcule a resistência equivalente de R1 ∥ R2.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${req},.015)">Validar</button></div><div class="feedback"></div>${hint('Para dois resistores: Req=(R1·R2)/(R1+R2).')}</div></div>`:`<div class="grid"><div>${svgParallel()}</div><div class="card"><h2>Missão 3 — Verificação</h2><p>O menor resistor é <b>${rfmt(mn)}</b> e você obteve Req≈<b>${rfmt(Math.round(req))}</b>. A resistência equivalente em paralelo é menor que o menor resistor?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div></div>`},
+4:x=>{let par=cfg.r2*cfg.r3/(cfg.r2+cfg.r3),req=cfg.r1+par+cfg.r4;return x===0?`<div class="grid"><div>${svgMixed()}</div><div class="card"><h2>Missão 1 — Estratégia</h2><p>Qual bloco deve ser reduzido primeiro?</p><div class="options"><button class="option" onclick="tryOk(true)">R2 ∥ R3</button><button class="option" onclick="tryOk(false)">Somar todos diretamente</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="grid"><div>${svgMixed()}</div><div class="card"><h2>Missão 2 — Paralelo</h2><p>Calcule R2 ∥ R3.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${par},.015)">Validar</button></div><div class="feedback"></div></div></div>`:`<div class="grid"><div>${svgMixed()}</div><div class="card"><h2>Missão 3 — Req total</h2><p>Calcule Req entre A e B.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${req},.015)">Validar</button></div><div class="feedback"></div></div></div>`},
+5:x=>x===0?`<div class="meter-lesson"><div>${meterHTML()}</div><div class="card"><h2>Conheça o instrumento</h2><p><b>COM:</b> ponta preta. <b>VΩmA:</b> ponta vermelha para tensão, resistência, continuidade e pequenas correntes. <b>10A:</b> entrada dedicada a correntes elevadas.</p><div class="warning">Nunca meça resistência em circuito energizado. Para corrente, o instrumento deve entrar em série.</div><button class="primary" onclick="tryOk(true,'Treinamento inicial concluído.')">Entendi</button><div class="feedback"></div></div></div>`:x===1?meterQuestion('OHM','Medir um resistor isolado e desenergizado.'):x===2?meterQuestion('VDC','Medir tensão contínua entre dois pontos de um circuito energizado.'):x===3?meterQuestion('ADC','Medir a corrente contínua que atravessa um ramo.'):`<div class="meter-lesson"><div>${meterHTML()}</div><div class="card"><h2>Continuidade</h2><p>Para verificar um cabo desenergizado, selecione continuidade.</p><button class="primary" onclick="tryOk(meterMode==='CONT','Continuidade selecionada corretamente.')">Confirmar</button><div class="feedback"></div></div></div>`,
+6:x=>{let meas=cfg.r1*cfg.measFactor,err=Math.abs(meas-cfg.r1)/cfg.r1*100;
+ return x===0?`<div class="card"><h2>Missão 1 — Valor nominal</h2><p>R1=${rfmt(cfg.r1)}. Informe seu valor em Ω.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${cfg.r1},.001)">Validar</button></div><div class="feedback"></div></div>`:
+ x===1?practicalMeasure('resistance','OHM',meas,'Missão 2 — Meça R1','Selecione Ω. O resistor está isolado e desenergizado. Arraste uma ponta para cada terminal e realize a medição.'):
+ x===2?`<div class="card"><h2>Missão 3 — Compare teoria e prática</h2><p>Nominal: ${rfmt(cfg.r1)} • medido: ${meas.toFixed(1)} Ω. A pequena diferença é coerente com tolerância de componente/medição?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim</button><button class="option" onclick="tryOk(false)">Não, devem ser idênticos</button></div><div class="feedback"></div></div>`:
+ `<div class="card"><h2>Missão 4 — Erro percentual</h2><p>Nominal: ${cfg.r1} Ω • medido: ${meas.toFixed(1)} Ω. Calcule o erro percentual.</p><div class="inputrow"><input id="answer" placeholder="%"><button class="primary" onclick="num(${err},.12)">Validar</button></div><div class="feedback"></div></div>`},
+7:x=>{let I=cfg.v/cfg.r1;
+ return x===0?`<div class="grid"><div>${svgOhm()}</div><div class="card"><h2>Missão 1 — Calcule I</h2><p>Fonte ${cfg.v} V e R1=${rfmt(cfg.r1)}. Informe a corrente em A ou mA.</p><div class="inputrow"><input id="answer" placeholder="ex.: 12 mA"><button class="primary" onclick="num(${I},.02)">Validar</button></div><div class="feedback"></div></div></div>`:
+ x===1?practicalMeasure('voltage','VDC',cfg.v,'Missão 2 — Meça a tensão','Selecione V⎓ e conecte as pontas em paralelo com R1.'):
+ x===2?`<div class="card"><h2>Missão 3 — Preparando o amperímetro</h2><p>Para medir a corrente calculada, como o multímetro deve ser conectado?</p><div class="options"><button class="option" onclick="tryOk(false)">Em paralelo com a fonte</button><button class="option" onclick="tryOk(true)">Em série, abrindo a malha</button></div><div class="feedback"></div></div>`:
+ practicalMeasure('current','ADC',I,'Missão 4 — Meça a corrente','Selecione mA⎓. A malha já possui uma abertura: coloque uma ponta em cada lado para inserir o amperímetro em série.')},
+8:x=>{let rt=cfg.r1+cfg.r2+cfg.r3,I=cfg.v/rt,v1=I*cfg.r1,v2=I*cfg.r2,v3=I*cfg.r3;
+ return x===0?`<div class="grid"><div>${svgKvl()}</div><div class="card"><h2>Missão 1 — KVL</h2><p>Segundo a KVL, a soma algébrica das tensões em uma malha fechada é:</p><div class="options"><button class="option" onclick="tryOk(true)">Zero</button><button class="option" onclick="tryOk(false)">Sempre ${cfg.v} V</button></div><div class="feedback"></div></div></div>`:
+ x===1?`<div class="grid"><div>${svgKvl()}</div><div class="card"><h2>Missão 2 — Queda V3</h2><p>Vfonte=${cfg.v} V • V1≈${v1.toFixed(2)} V • V2≈${v2.toFixed(2)} V. Calcule V3.</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${v3},.025)">Validar</button></div><div class="feedback"></div></div></div>`:
+ x===2?practicalMeasure('kvl','VDC',v3,'Missão 3 — Meça V3','Selecione V⎓ e posicione as pontas nos dois terminais de R3 para medir sua queda de tensão.'):
+ `<div class="grid"><div>${svgKvl()}</div><div class="card"><h2>Missão 4 — Valide a KVL</h2><p>Valores teóricos/medidos devem satisfazer Vfonte ≈ V1 + V2 + V3.</p><div class="inputrow"><label class="fieldlabel">V1 (V)<input id="a0"></label><label class="fieldlabel">V2 (V)<input id="a1"></label><label class="fieldlabel">V3 (V)<input id="a2"></label><label class="fieldlabel">Vfonte (V)<input id="a3"></label><button class="primary" onclick="multi([${v1},${v2},${v3},${cfg.v}],.025)">Validar KVL</button></div><div class="feedback"></div></div></div>`},
+9:x=>{let It=cfg.v/cfg.r1,i2=It*.4,i3=It*.6;
+ return x===0?`<div class="card"><h2>Missão 1 — Lei dos nós</h2><p>A soma das correntes que entram em um nó deve ser:</p><div class="options"><button class="option" onclick="tryOk(true)">Igual à soma das correntes que saem</button><button class="option" onclick="tryOk(false)">Igual à tensão</button></div><div class="feedback"></div></div>`:
+ x===1?`<div class="card"><h2>Missão 2 — Corrente desconhecida</h2><p>I1=${(It*1000).toFixed(2)} mA entra; I2=${(i2*1000).toFixed(2)} mA sai. Calcule I3.</p><div class="inputrow"><input id="answer" placeholder="mA"><button class="primary" onclick="num(${i3},.025)">Validar</button></div><div class="feedback"></div></div>`:
+ x===2?`<div class="card"><h2>Missão 3 — Como medir I3?</h2><p>Qual ligação deve ser usada?</p><div class="options"><button class="option" onclick="tryOk(true)">Abrir o ramo e inserir o amperímetro em série</button><button class="option" onclick="tryOk(false)">Colocar o amperímetro em paralelo</button></div><div class="feedback"></div></div>`:
+ practicalMeasure('branchCurrent','ADC',i3,'Missão 4 — Meça I3','Selecione mA⎓ e insira o multímetro no ramo aberto, colocando uma ponta em cada lado da abertura.')},
+10:x=>{let par=cfg.r2*cfg.r3/(cfg.r2+cfg.r3),req=cfg.r1+par+cfg.r4,I=cfg.v/req,v1=I*cfg.r1;
+ return x===0?`<div class="grid"><div>${svgMixed(true)}</div><div class="card"><h2>Desafio 1 — Req</h2><p>Calcule a resistência equivalente total.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${req},.015)">Validar</button></div><div class="feedback"></div></div></div>`:
+ x===1?`<div class="grid"><div>${svgMixed(true)}</div><div class="card"><h2>Desafio 2 — Itotal</h2><p>Fonte=${cfg.v} V. Determine a corrente total.</p><div class="inputrow"><input id="answer" placeholder="A ou mA"><button class="primary" onclick="num(${I},.025)">Validar</button></div><div class="feedback"></div></div></div>`:
+ x===2?`<div class="grid"><div>${svgMixed(true)}</div><div class="card"><h2>Desafio 3 — Queda em R1</h2><p>Determine a queda de tensão em R1=${rfmt(cfg.r1)}.</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${v1},.025)">Validar</button></div><div class="feedback"></div></div></div>`:
+ x===3?practicalMeasure('voltage','VDC',v1,'Desafio 4 — Confirme V1','Sem ajuda sobre a ligação: configure o instrumento e posicione corretamente as duas pontas para confirmar a queda em R1.'):
+ practicalMeasure('currentTotal','ADC',I,'Desafio 5 — Confirme Itotal','Configure o instrumento e use a abertura da malha para medir a corrente total.')},
+11:x=>{let c=cfg.c1;return x===0?`<div class="card"><span class="part-tag">PARTE 2</span><h2>Capacitância elétrica</h2><p>Capacitância é medida em farads. µF, nF e pF são submúltiplos.</p><button class="primary" onclick="tryOk(true)">Iniciar</button><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Conversão</h2><p>${cfmt(c)} = quantos F?</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${c},.003)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Polaridade</h2><p>Inverter um eletrolítico polarizado é adequado?</p><div class="options"><button class="option" onclick="tryOk(false)">Sim</button><button class="option" onclick="tryOk(true)">Não, pode danificá-lo</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Unidades</h2><p>Qual é maior?</p><div class="options"><button class="option" onclick="tryOk(true)">0,47 µF</button><button class="option" onclick="tryOk(false)">100 nF</button></div><div class="feedback"></div></div>`},
+12:x=>{let ce=cfg.c1+cfg.c2;return x===0?`<div class="grid"><div>${capParallel()}</div><div class="card"><h2>Topologia</h2><p>C1 e C2 compartilham A e B?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim, paralelo</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>Ceq</h2><p>Ceq=C1+C2. Informe em µF.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${ce*1e6},.004)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Verificação</h2><p>Ceq em paralelo é maior que cada capacitor?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Resultado</h2><p>Digite novamente Ceq em F.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${ce},.004)">Validar</button></div><div class="feedback"></div></div>`},
+13:x=>{let ce=cfg.c1*cfg.c2/(cfg.c1+cfg.c2);return x===0?`<div class="grid"><div>${capSeries()}</div><div class="card"><h2>Série</h2><p>Em série, a mesma magnitude de carga aparece nos capacitores.</p><button class="primary" onclick="tryOk(true)">Continuar</button><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>Ceq</h2><p>Ceq=(C1·C2)/(C1+C2). Informe em µF.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${ce*1e6},.005)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Verificação</h2><p>Ceq deve ser menor que o menor capacitor?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Conversão</h2><p>Informe Ceq em F.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${ce},.005)">Validar</button></div><div class="feedback"></div></div>`},
+14:x=>{let cp=cfg.c2+cfg.c3,ce=cfg.c1*cp/(cfg.c1+cp);return x===0?`<div class="card"><h2>Associação mista</h2><p>C2 e C3 formam um bloco paralelo; o resultado fica em série com C1.</p><button class="primary" onclick="tryOk(true)">Analisar</button><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>C23</h2><p>C2=${cfmt(cfg.c2)}, C3=${cfmt(cfg.c3)}. C23 em µF?</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${cp*1e6},.005)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Ceq total</h2><p>C1=${cfmt(cfg.c1)} em série com C23=${cfmt(cp)}. Ceq em µF?</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${ce*1e6},.006)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Estratégia</h2><div class="options"><button class="option" onclick="tryOk(true)">Reduzir blocos progressivamente</button><button class="option" onclick="tryOk(false)">Somar tudo</button></div><div class="feedback"></div></div>`},
+15:x=>{return x===0?`<div class="card"><h2>Multímetro e capacitores</h2><p>Antes de medir capacitância: circuito desenergizado e capacitor descarregado. Use CAP/F.</p><button class="primary" onclick="tryOk(true)">Entendi</button><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Segurança</h2><p>Posso medir um capacitor carregado?</p><div class="options"><button class="option" onclick="tryOk(false)">Sim</button><button class="option" onclick="tryOk(true)">Não</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Valor nominal</h2><p>${cfmt(cfg.c1)} em µF?</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${cfg.c1*1e6},.003)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Interpretação</h2><p>Uma leitura próxima, mas não idêntica ao nominal, pode ser explicada pela tolerância?</p><div class="options"><button class="option" onclick="tryOk(true)">Sim</button><button class="option" onclick="tryOk(false)">Não</button></div><div class="feedback"></div></div>`},
+16:x=>{let tau=cfg.rcR*cfg.rcC;return x===0?`<div class="grid"><div>${rcSvg()}</div><div class="card"><h2>Constante de tempo</h2><p>τ=R·C. Em 1τ a carga chega a ~63,2%; em ~5τ, praticamente ao valor final.</p><button class="primary" onclick="tryOk(true)">Continuar</button><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>Calcule τ</h2><p>R=${rfmt(cfg.rcR)}, C=${cfmt(cfg.rcC)}.</p><div class="inputrow"><input id="answer" placeholder="s"><button class="primary" onclick="num(${tau},.006)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>1τ</h2><div class="options"><button class="option" onclick="tryOk(true)">≈63,2% na carga</button><button class="option" onclick="tryOk(false)">100%</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>5τ</h2><p>Tempo de carga praticamente completa?</p><div class="inputrow"><input id="answer" placeholder="s"><button class="primary" onclick="num(${5*tau},.006)">Validar</button></div><div class="feedback"></div></div>`},
+17:x=>{let T=1/cfg.scopeF;return x===0?`<div class="card"><h2>Treinamento — Osciloscópio</h2><p>CH1 mede tensão em relação ao GND. VOLTS/DIV ajusta a escala vertical; TIME/DIV, a horizontal; trigger define o ponto de sincronismo. As alterações devem modificar o traçado na tela em tempo real.</p><button class="primary" onclick="tryOk(true)">Conhecer instrumento</button><div class="feedback"></div></div>`:x===1?`${scope('charge',.001,5)}<div class="card"><h2>VOLTS/DIV</h2><div class="options"><button class="option" onclick="tryOk(true)">Escala vertical</button><button class="option" onclick="tryOk(false)">Frequência</button></div><div class="feedback"></div></div>`:x===2?`${scope('charge',.001,5)}<div class="card"><h2>TIME/DIV</h2><div class="options"><button class="option" onclick="tryOk(true)">Escala horizontal de tempo</button><button class="option" onclick="tryOk(false)">Resistência</button></div><div class="feedback"></div></div>`:x===3?`<div class="card"><h2>Período</h2><p>${cfg.scopeF} Hz → T=? s</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${T},.006)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Conexão</h2><div class="options"><button class="option" onclick="tryOk(true)">CH1 em Vc e GND na referência 0 V</button><button class="option" onclick="tryOk(false)">Ambos no mesmo nó</button></div><div class="feedback"></div></div>`},
+18:x=>{let tau=cfg.rcR*cfg.rcC,v=cfg.scopeV*(1-Math.exp(-1));return x===0?`<div class="grid"><div>${rcSvg()}</div><div class="card"><h2>Carga RC</h2><p>Vc(t)=V(1−e⁻ᵗ/ᴿᶜ).</p><button class="primary" onclick="tryOk(true)">Observar</button><div class="feedback"></div></div></div>`:x===1?`${scope('charge',tau,cfg.scopeV)}<div class="card"><h2>Vc em 1τ</h2><p>Vfinal=${cfg.scopeV} V.</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${v},.03)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Regime permanente CC</h2><div class="options"><button class="option" onclick="tryOk(true)">Capacitor ideal ≈ circuito aberto</button><button class="option" onclick="tryOk(false)">Curto-circuito</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Após 5τ</h2><div class="options"><button class="option" onclick="tryOk(true)">Vc≈Vfonte</button><button class="option" onclick="tryOk(false)">Vc≈0</button></div><div class="feedback"></div></div>`},
+19:x=>{let tau=cfg.rcR*cfg.rcC,v=cfg.scopeV*Math.exp(-1);return x===0?`<div class="card"><h2>Descarga RC</h2><p>Vc(t)=V0·e⁻ᵗ/ᴿᶜ. Em 1τ restam ~36,8%.</p><button class="primary" onclick="tryOk(true)">Continuar</button><div class="feedback"></div></div>`:x===1?`${scope('discharge',tau,cfg.scopeV)}<div class="card"><h2>Vc em 1τ</h2><p>V0=${cfg.scopeV} V.</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${v},.03)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Forma da curva</h2><div class="options"><button class="option" onclick="tryOk(true)">Decrescimento exponencial</button><button class="option" onclick="tryOk(false)">Crescimento linear</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Após 5τ</h2><div class="options"><button class="option" onclick="tryOk(true)">Vc≈0 V</button><button class="option" onclick="tryOk(false)">Vc dobra</button></div><div class="feedback"></div></div>`},
+20:x=>{let tau=cfg.rcR*cfg.rcC,v=cfg.scopeV*(1-Math.exp(-1));return x===0?`<div class="grid"><div>${rcSvg()}</div><div class="card"><h2>Desafio 1 — τ</h2><p>R=${rfmt(cfg.rcR)}, C=${cfmt(cfg.rcC)}.</p><div class="inputrow"><input id="answer" placeholder="s"><button class="primary" onclick="num(${tau},.006)">Validar</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>Instrumento</h2><div class="options"><button class="option" onclick="tryOk(true)">Osciloscópio para observar Vc(t)</button><button class="option" onclick="tryOk(false)">Ohmímetro energizado</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Conexão</h2><div class="options"><button class="option" onclick="tryOk(true)">CH1 em Vc e GND em 0 V</button><button class="option" onclick="tryOk(false)">Mesmo nó</button></div><div class="feedback"></div></div>`:x===3?`${scope('charge',tau,cfg.scopeV)}<div class="card"><h2>Vc(1τ)</h2><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${v},.03)">Validar</button></div><div class="feedback"></div></div>`:x===4?`<div class="card"><h2>Tempo prático</h2><p>5τ=? s</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${5*tau},.008)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Conclusão</h2><div class="options"><button class="option" onclick="tryOk(true)">Em regime permanente CC, capacitor ideal se comporta como circuito aberto</button><button class="option" onclick="tryOk(false)">Sua capacitância desaparece</button></div><div class="feedback"></div></div>`}
+,
+21:x=>x===0?`<div class="grid"><div>${transistorIntroSvg('NPN')}</div><div class="card"><h2>Parte 3 — Transistores</h2><p>Identifique os três terminais de um BJT.</p><div class="options"><button class="option" onclick="tryOk(true)">Base, coletor e emissor</button><button class="option" onclick="tryOk(false)">Ânodo, cátodo e gate</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>Aplicações</h2><p>Um transistor pode ser usado para:</p><div class="options"><button class="option" onclick="tryOk(true)">Amplificação e chaveamento</button><button class="option" onclick="tryOk(false)">Somente armazenamento de carga</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Controle</h2><p>No BJT, uma pequena corrente de base pode controlar uma corrente maior de:</p><div class="options"><button class="option" onclick="tryOk(true)">Coletor</button><button class="option" onclick="tryOk(false)">Capacitor</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Grandeza</h2><p>Qual símbolo usamos para corrente de base?</p><div class="options"><button class="option" onclick="tryOk(true)">IB</button><button class="option" onclick="tryOk(false)">VB</button></div><div class="feedback"></div></div>`,
+22:x=>x===0?`<div class="grid"><div>${transistorIntroSvg('NPN')}</div><div class="card"><h2>NPN</h2><p>A seta do emissor aponta:</p><div class="options"><button class="option" onclick="tryOk(true)">Para fora</button><button class="option" onclick="tryOk(false)">Para dentro</button></div><div class="feedback"></div></div></div>`:x===1?`<div class="grid"><div>${transistorIntroSvg('PNP')}</div><div class="card"><h2>PNP</h2><p>A seta do emissor aponta:</p><div class="options"><button class="option" onclick="tryOk(true)">Para dentro</button><button class="option" onclick="tryOk(false)">Para fora</button></div><div class="feedback"></div></div></div>`:x===2?`<div class="card"><h2>Identificação</h2><p>Qual tipo será usado prioritariamente nos próximos exercícios de chaveamento?</p><div class="options"><button class="option" onclick="tryOk(true)">NPN</button><button class="option" onclick="tryOk(false)">Somente PNP</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Terminal de controle</h2><p>O terminal de controle do BJT é a:</p><div class="options"><button class="option" onclick="tryOk(true)">Base</button><button class="option" onclick="tryOk(false)">Carcaça</button></div><div class="feedback"></div></div>`,
+23:x=>{let vbe=cfg.vbe;return x===0?`<div class="card"><h2>Junção base-emissor</h2><p>Para um BJT de silício em condução, VBE costuma ficar aproximadamente entre:</p><div class="options"><button class="option" onclick="tryOk(true)">0,6 e 0,7 V</button><button class="option" onclick="tryOk(false)">5 e 12 V</button></div><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Valor sorteado</h2><p>Neste transistor, considere VBE≈${vbe.toFixed(2)} V. Informe esse valor em mV.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${vbe*1000},.01)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Polarização</h2><p>Para conduzir em um NPN, a base deve estar:</p><div class="options"><button class="option" onclick="tryOk(true)">Mais positiva que o emissor</button><button class="option" onclick="tryOk(false)">Muito mais negativa que o emissor</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Emissor em GND</h2><p>Se VE=0 V e VBE=${vbe.toFixed(2)} V, VB≈?</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${vbe},.02)">Validar</button></div><div class="feedback"></div></div>`},
+24:x=>{let ib=pick([.00005,.00008,.0001,.00012]),ic=pick([.003,.005,.008,.01]),ie=ib+ic;return x===0?`<div class="card"><h2>Lei das correntes no BJT</h2><p>Qual relação é correta?</p><div class="options"><button class="option" onclick="tryOk(true)">IE = IC + IB</button><button class="option" onclick="tryOk(false)">IB = IC + IE</button></div><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Calcule IE</h2><p>IB=${(ib*1000).toFixed(2)} mA e IC=${(ic*1000).toFixed(2)} mA.</p><div class="inputrow"><input id="answer" placeholder="A ou mA"><button class="primary" onclick="num(${ie},.02)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Calcule IC</h2><p>IE=${(ie*1000).toFixed(2)} mA e IB=${(ib*1000).toFixed(2)} mA.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${ic},.02)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Interpretação</h2><p>Normalmente, em um BJT de sinal, IB é:</p><div class="options"><button class="option" onclick="tryOk(true)">Menor que IC</button><button class="option" onclick="tryOk(false)">Sempre maior que IC</button></div><div class="feedback"></div></div>`},
+25:x=>{let ib=pick([.00005,.00008,.0001,.00012,.00015]),ic=cfg.beta*ib;return x===0?`<div class="card"><h2>Ganho β</h2><p>Na região ativa, IC≈β·IB.</p><button class="primary" onclick="tryOk(true)">Continuar</button><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Calcule IC</h2><p>β=${cfg.beta} e IB=${(ib*1000).toFixed(3)} mA.</p><div class="inputrow"><input id="answer" placeholder="A ou mA"><button class="primary" onclick="num(${ic},.025)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Calcule β</h2><p>IC=${(ic*1000).toFixed(2)} mA e IB=${(ib*1000).toFixed(3)} mA.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${cfg.beta},.025)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Limite do modelo</h2><p>A relação IC=βIB continua válida sem limite quando o transistor satura?</p><div class="options"><button class="option" onclick="tryOk(false)">Sim</button><button class="option" onclick="tryOk(true)">Não, a saturação limita IC pelo circuito externo</button></div><div class="feedback"></div></div>`},
+26:x=>x===0?`<div class="card"><h2>Corte</h2><p>IB≈0 e IC≈0 correspondem a:</p><div class="options"><button class="option" onclick="tryOk(true)">Corte</button><button class="option" onclick="tryOk(false)">Saturação</button></div><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Saturação</h2><p>VCE próximo de ${cfg.vcesat.toFixed(2)} V indica:</p><div class="options"><button class="option" onclick="tryOk(true)">Saturação</button><button class="option" onclick="tryOk(false)">Corte</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Região ativa</h2><p>Na região ativa, IC é aproximadamente:</p><div class="options"><button class="option" onclick="tryOk(true)">β·IB</button><button class="option" onclick="tryOk(false)">Sempre zero</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Chave eletrônica</h2><p>Para chaveamento digital simples, buscamos principalmente:</p><div class="options"><button class="option" onclick="tryOk(true)">Corte e saturação</button><button class="option" onclick="tryOk(false)">Somente região ativa</button></div><div class="feedback"></div></div>`,
+27:x=>{let ib=(cfg.ctrlV-cfg.vbe)/cfg.rb,imax=(cfg.ctrlV-cfg.vcesat)/cfg.rc;return x===0?`<div class="grid"><div>${switchCircuitSvg()}</div><div class="card"><h2>Transistor como chave</h2><p>Quando Q1 satura, VCE fica baixo e a carga recebe corrente.</p><button class="primary" onclick="tryOk(true)">Analisar</button><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>Corrente de base</h2><p>Vcontrole=${cfg.ctrlV} V, RB=${rfmt(cfg.rb)}, VBE≈${cfg.vbe.toFixed(2)} V. Calcule IB.</p><div class="inputrow"><input id="answer" placeholder="A ou mA"><button class="primary" onclick="num(${ib},.03)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Corrente máxima de coletor</h2><p>Com RC=${rfmt(cfg.rc)} e VCEsat≈${cfg.vcesat.toFixed(2)} V, estime IC(sat).</p><div class="inputrow"><input id="answer" placeholder="A ou mA"><button class="primary" onclick="num(${imax},.03)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Estado lógico</h2><p>Em corte, a carga está:</p><div class="options"><button class="option" onclick="tryOk(true)">Desligada</button><button class="option" onclick="tryOk(false)">Sempre ligada</button></div><div class="feedback"></div></div>`},
+28:x=>{let ve=0,vb=cfg.vbe,ib=(cfg.ctrlV-cfg.vbe)/cfg.rb,ic=Math.min(cfg.beta*ib,(cfg.ctrlV-cfg.vcesat)/cfg.rc),vc=cfg.ctrlV-ic*cfg.rc,vce=vc-ve;return x===0?`<div class="grid"><div>${switchCircuitSvg()}</div><div class="card"><h2>Polarização CC</h2><p>Vamos calcular VB, VC e VCE para estimar a região de operação.</p><button class="primary" onclick="tryOk(true)">Começar</button><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>VB</h2><p>Emissor em 0 V e VBE≈${cfg.vbe.toFixed(2)} V. VB≈?</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${vb},.02)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>VC</h2><p>Com IC≈${(ic*1000).toFixed(2)} mA e RC=${rfmt(cfg.rc)}, calcule VC.</p><div class="inputrow"><input id="answer" placeholder="V"><button class="primary" onclick="num(${vc},.03)">Validar</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>VCE</h2><p>VC=${vc.toFixed(2)} V e VE=0 V. Calcule VCE.</p><div class="inputrow"><input id="answer"><button class="primary" onclick="num(${vce},.03)">Validar</button></div><div class="feedback"></div></div>`},
+29:x=>x===0?`<div class="meter-lesson"><div>${meterHTML()}</div><div class="card"><h2>Teste de diodo</h2><p>Selecione a função teste de diodo (➤|). O circuito deve estar desenergizado.</p><button class="primary" onclick="tryOk(meterMode==='DIODE','Função teste de diodo selecionada.')">Confirmar</button><div class="feedback"></div></div></div>`:x===1?`<div class="card"><h2>NPN — base-emissor</h2><p>Para polarizar diretamente a junção B-E de um NPN no teste de diodo:</p><div class="options"><button class="option" onclick="tryOk(true)">Ponta vermelha na base e preta no emissor</button><button class="option" onclick="tryOk(false)">Preta na base e vermelha no emissor</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Leitura esperada</h2><p>Uma junção B-E saudável de silício pode apresentar aproximadamente:</p><div class="options"><button class="option" onclick="tryOk(true)">0,55 a 0,75 V</button><button class="option" onclick="tryOk(false)">12 V fixos</button></div><div class="feedback"></div></div>`:`<div class="card"><h2>Inversão das pontas</h2><p>Ao inverter as pontas em uma junção saudável, o instrumento deve indicar:</p><div class="options"><button class="option" onclick="tryOk(true)">OL / não condução</button><button class="option" onclick="tryOk(false)">Curto de 0 V</button></div><div class="feedback"></div></div>`,
+30:x=>{initAstable();let p=astablePeriods();return x===0?`<div class="card"><h2>Laboratório — Multivibrador Astável</h2><p>Dois BJTs NPN alternam entre corte e saturação. Os capacitores não geram ondas quadradas ideais: suas tensões evoluem exponencialmente e disparam a comutação quando a junção base-emissor alcança o limiar de condução.</p><button class="primary" onclick="tryOk(true)">Abrir laboratório</button><div class="feedback"></div></div>`:x===1?`<div class="card"><h2>Calcule t1</h2><p>R1=${rfmt(astableState.r1)} e C1=${cfmt(cfg.astC1)}. Use t1≈0,693·R1·C1.</p><div class="inputrow"><input id="answer" placeholder="s"><button class="primary" onclick="num(${p.t1},.025)">Validar</button></div><div class="feedback"></div></div>`:x===2?`<div class="card"><h2>Calcule t2</h2><p>R2=${rfmt(astableState.r2)} e C2=${cfmt(cfg.astC2)}.</p><div class="inputrow"><input id="answer" placeholder="s"><button class="primary" onclick="num(${p.t2},.025)">Validar</button></div><div class="feedback"></div></div>`:x===3?`<div class="card"><h2>Frequência teórica</h2><p>T≈t1+t2. Determine f=1/T.</p><div class="inputrow"><input id="answer" placeholder="Hz"><button class="primary" onclick="num(${p.f},.03)">Validar</button></div><div class="feedback"></div></div>`:x===4?`${astableLab()}<div class="card"><h2>Experimento livre</h2><p>Varie R1 e R2. Os LEDs, a frequência, o duty cycle e os sinais do osciloscópio devem responder juntos. Observe especialmente a curva rosa de base/capacitor e o recorte provocado pela condução/saturação.</p><button class="primary" onclick="tryOk(true)">Concluir observação</button><div class="feedback"></div></div>`:`<div class="card"><h2>Desafio final</h2><p>Aumentar R1 mantendo C1 constante tende a:</p><div class="options"><button class="option" onclick="tryOk(true)">Aumentar t1 e reduzir a frequência global</button><button class="option" onclick="tryOk(false)">Diminuir t1</button></div><div class="feedback"></div></div>`}
+
+};
+function checksum(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)}return(h>>>0).toString(36).toUpperCase()}
+function utf8ToB64url(text){let bytes=new TextEncoder().encode(text),bin='';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64urlToUtf8(data){let b=data.replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';let bin=atob(b),bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));return new TextDecoder().decode(bytes)}
+function makeCheat(level){let payload={v:3,n:student.name,g:student.gender,s:Number(totalScore)||0,l:Number(level)||0,d:new Date().toISOString(),r:Math.random().toString(36).slice(2,10)};let raw=JSON.stringify(payload);return`CL3-${utf8ToB64url(raw)}-${checksum(raw)}`}
+function restoreCheat(){let out=$('cheatFeedback'),code=$('cheatInput').value.trim();try{if(!code.startsWith('CL3-'))throw 0;let body=code.slice(4),cut=body.lastIndexOf('-');if(cut<=0)throw 0;let raw=b64urlToUtf8(body.slice(0,cut)),sig=body.slice(cut+1).toUpperCase();if(checksum(raw)!==sig)throw 0;let data=JSON.parse(raw);if(data.v!==3||typeof data.n!=='string'||!['M','F','N'].includes(data.g)||!Number.isFinite(data.s)||!Number.isInteger(data.l)||data.l<0||data.l>6)throw 0;student={name:data.n,gender:data.g};totalScore=data.s;maxUnlocked=Math.min(6,data.l+1);let comp={};for(let k=1;k<=data.l;k++)comp[k]={best:0};localStorage.setItem('circuitlab_profile',JSON.stringify({student,totalScore,maxUnlocked,completed:comp}));out.innerHTML=`<span class="ok">✓ Progresso restaurado: ${esc(student.name)} • ${totalScore} pontos • nível ${data.l} concluído.</span>`;setTimeout(openMap,300)}catch(e){console.error(e);out.innerHTML='<span class="bad">Cheatcode inválido, incompleto ou alterado.</span>'}}
+function demoFinished(){show('game');title.textContent='Demonstração concluída';intro.textContent='Você concluiu a primeira prática de laboratório do CircuitLab.';stage.innerHTML='<div class="card mission demo-finish"><div class="part-tag">CIRCUITLAB DEMO</div><h2>Você concluiu a demonstração!</h2><p>Até aqui, você percorreu os fundamentos iniciais e chegou à primeira prática com o multímetro interativo.</p><p>A versão completa continua com novas medições, leis de circuitos, capacitores, osciloscópio, circuitos RC e transistores.</p><div class="inputrow"><button class="secondary" onclick="openMap()">Rever níveis da demo</button><a class="primary demo-site-link" href="/MeusProjetos/projetos/circuitlab/">Conhecer o projeto</a></div></div>';hud();window.scrollTo({top:0,behavior:'smooth'})}
+function finish(){let bonus=150;levelScore+=bonus;totalScore+=levelScore;maxUnlocked=Math.max(maxUnlocked,Math.min(6,L+1));let p=profile()||{},comp=p.completed||{};comp[L]={best:Math.max(comp[L]?.best||0,levelScore)};localStorage.setItem('circuitlab_profile',JSON.stringify({student,totalScore,maxUnlocked,completed:comp}));let code=makeCheat(L);hud();stage.innerHTML=`<div class="grid"><div class="card"><h2>🏆 Nível ${L} concluído!</h2><p>${credentialHTML()}</p><h3>+${levelScore} pontos neste nível</h3><h1>⭐ ${totalScore} pontos acumulados</h1><p>🎯 Precisão: ${attempts?Math.round(correct/attempts*100):100}%</p><h3>🔑 Código de continuidade</h3><div class="cheat" id="generatedCheat">${code}</div><p class="small">Guarde este código para continuar em outro computador. Ele contém sua identificação, pontuação, nível, data/hora e verificação de integridade.</p><button class="secondary" onclick="navigator.clipboard?.writeText($('generatedCheat').textContent)">Copiar código</button> <button class="primary" onclick="${L<6?`startLevel(${L+1})`:'demoFinished()'}">${L<6?'Próximo nível':'Concluir demonstração'}</button></div><div class="card" style="text-align:center"><img src="https://raw.githubusercontent.com/ProfGandra/CircuitLab/main/assets/instrutor_joia.png" class="completion-art" alt="Instrutor fazendo sinal de jóia"></div></div>`;renderMap()}
+let p0=profile();if(p0){student=p0.student;totalScore=p0.totalScore||0;maxUnlocked=p0.maxUnlocked||1}hud();$('hudCredential').innerHTML='';
+$('score').textContent='0';
+$('accuracy').textContent='100';
+$('dgandraSignature')?.classList.add('hidden');
+document.body.classList.remove('signature-visible');
+updateCredentialPreview();
+</script><div class="demo-ribbon">DEMONSTRAÇÃO · NÍVEIS 1–6</div></body></html>
